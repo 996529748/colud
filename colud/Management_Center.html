@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<link rel="stylesheet" href="css/Management_Center.css" />
+	<link rel="stylesheet" href="css/globals.css" />
+	<body>
+		<!--头部导航-->
+		<div class="header-nav">
+			<div class="header-list">
+				<div class="header-logo">
+					<a href="">
+						<img src="img/u17.png" alt="" />
+						<span>福昕云办公管理中心</span>
+					</a>
+				</div>
+				<div class="header-r-drop">						
+						<span class="user-name">liuzhen@liuzhen.foxitcloud.cn</span>
+						<div class="header-r-logo"></div>
+						<div class="header-r-div"></div>
+					<div class="header_drop_con">
+						<div class="header-r-qq"></div>
+						<p class="header-r-number">996529748</p>
+						<p class="header-r-id">ID:30000762</p>
+						<p class="header-r-usernumber">liuzhen@liuzhen.foxitcloud.cn</p>
+						<span class="header-r-line"></span>
+						<p><a href="" target="_blank">管理中心</a></p>
+						<p><a href="" target="_blank">修改密码</a></p>
+						<p><a href="">退出账号</a></p>
+					</div>
+				</div>
+				
+				<div class="header-download">
+					<div class="download-logo"></div>
+					<span>下载云办公套件</span>
+					<div class="download-div"></div>
+					<div class="download-drop">
+						<p><a href="#" target="_blank">福昕PDF编辑器</a></p>
+						<p><a href="#" target="_blank">福昕PDF转Word</a></p>
+					</div>
+				</div>		
+				<!--进入云编辑-->
+					<div class="header-clound">
+						<a href="">进入福昕云编辑</a>
+					</div>
+			</div>
+		</div>
+		<!--主体-->
+		<div class="main">
+			<div class="main-l">
+				<ul>
+					<li class="item-1">
+						<img src="img/u20.png" alt="" />
+						账号管理
+						<i class="jiantou-down"></i>
+					</li>
+					<li class="item-2 item-bg-color">成员管理</li>
+					<li class="item-3">
+						<img src="img/u21.png" alt="" />
+						账号设置
+						<i class="jiantou-down"></i>
+					</li>
+					<li class="item-4">企业信息</li>
+					<li class="item-5">管理员账号</li>
+				</ul>
+			</div>
+			<div class="main-r">
+				<!--添加成员按钮-->
+				<div class="main-r-item1">
+					<div class="item1-add">
+						<span class="item1-add-btn" href="">添加成员</span>
+						<img class="item1-img" src="img/u2.png" alt="" />
+						<div class="hover none">
+							<h3>添加成员</h3>
+							<p>添加成员成功后，该成员</p>
+							<p>会收到福昕云办公下发的</p>
+							<p>激活邮件和激活短信，根</p>
+							<p>据指引完成激活后，可以</p>
+							<p>使用;</p>
+						</div>
+						<!--搜索-->
+						<div class="item1-search">
+							<input class="item1-input" placeholder="搜索账号" type="text" />
+							<span class="search-text">搜索</span>
+						</div>
+					</div>	
+				</div>
+				<!--弹出模态框-->
+				<div class="modal-box none">
+					<form action="">
+						<div class="modal-box-item1">
+							<h1>添加成员</h1>
+							<img class="modal-box-item1-img" src="img/u6.png" alt="" />
+						</div>
+						<div class="modal-box-item2">
+							<ul>
+								<li class="modal-box-item2-1">
+									<span>*账号：</span>
+									<input class="modal-box-item2-1-input"  type="text" />
+									<span class="modal-box-item2-1-search">@liuzhen.foxitcloud.cn</span>
+								</li>
+								<li class="modal-box-item2-2">
+									<span>*邮箱：</span>
+									<input class="modal-box-item2-2-input"  type="text" />
+								</li>
+								<li class="modal-box-item2-3">
+									<span>*手机：</span>
+									<input class="modal-box-item2-3-input"  type="text" />
+								</li>
+								<li class="modal-box-item2-4">
+									<a class="modal-box-item2-3-btn" href="">添加</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+				<!--遮罩层-->
+				<div class="mask none"></div>
+				<!--列表-->
+				<table>
+					<thead>
+						<tr>
+							<th class="th1">ID</th>
+							<th class="th2">账号</th>
+							<th class="th3">邮箱</th>
+							<th class="th4">手机</th>
+							<th class="th5">状态
+								<div class="th5-div">
+									<div class="th5-drop">
+										<p class="th5-drop-p1"><a href="#" target="_blank">全部的</a></p>
+										<p><a href="#" target="_blank">活动的</a></p>
+										<p><a href="#" target="_blank">锁定的</a></p>
+									</div>
+								</div>
+							</th>
+							<th class="th6">操作</th>
+						</tr>
+					</thead>
+				</table>
+				<!--企业信息-->
+				<div class="information-all none">
+					<div class="information-item1">
+						<h1>企业资料</h1>
+						<a href="">修改</a>
+					</div>
+					<div class="information-item2">
+						<ul>
+							<li class="item-2-1">企业名称：<input class="input1" type="text" disabled="disabled"/></li>
+							<li class="item-2-2">企业域名：<input class="input2" type="text" disabled="disabled" value="liuzhen"/></li>
+							<li class="item-2-3">联系电话：<input class="input3" type="text" disabled="disabled"/></li>
+							<li class="item-2-4">联系地址：<input class="input4" type="text" disabled="disabled"/></li>
+							<li class="item-2-5">邮政编码：<input class="input5" type="text" disabled="disabled"/></li>
+						</ul>
+					</div>
+					<!--授权-->
+					<div class="authorization-item1">
+						<h1>授权信息</h1>
+					</div>
+					<div class="authorization-item2">
+						<ul>
+							<li class="item-2-1">授权服务：<span>福昕云办公服务（包含福昕PDF编辑器客户端、福昕PDF转WORD客户端)</span></li>
+							<li class="item-2-2">订阅数量：
+								<span><span>0</span>个（已使用<span>0</span>个,剩余<span>0</span>个）</span>
+								<a class="increase" href="">增加数量</a>
+							</li>
+							<li class="item-2-3 item-li-p">
+								<p class="item-2-3-p">限用户账号登录使用，同一用户最多支持3台浮动电脑上使用，不可同时在2台以上电脑使用</p>
+								<p class="item-2-3-p">账号使用权限包括福昕PDF编辑器、福昕PDF转WORD</p>
+							</li>
+							<li class="item-2-4 item-2-4-1">授权书：
+								<span>授权书到期时间：</span>
+								<a class="authorization" href="">延长授权</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--账号信息-->
+				<div class="account none">
+					<div class="account-item1">
+						<h1>账号信息</h1>
+						<a href="">修改</a>
+					</div>
+					<div class="account-item2">
+						<ul>
+							<li class="item-2-1 item-2-1-id">ID：<input class="input1" type="text" disabled="disabled" value="30000762"/></li>
+							<li class="item-2-2">账号：<input class="input2" type="text" disabled="disabled" value="liuzhen@liuzhen.foxitcloud.cn"/></li>
+							<li class="item-2-3">姓名：<input class="input3" type="text" disabled="disabled" value="liuzhen"/></li>
+							<li class="item-2-4">邮箱：<input class="input4" type="text" disabled="disabled" /></li>
+							<li class="item-2-5">手机：<input class="input5" type="text" disabled="disabled" value="17758937232"/></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="js/jquery.js"></script>
+	<script>
+		//账号管理
+		$(".item-1").click(function(){			
+			var img = $(this).children().eq(1);			
+				if(img.hasClass("jiantou-down")){
+					//切换箭头
+					img.removeClass('jiantou-down').addClass('jiantou');
+					//显示item-2
+					$(".item-2").toggle();
+				}else{
+					img.addClass('jiantou-down').removeClass('jiantou');
+					$(".item-2").toggle();
+				}
+		})
+		//账号设置
+		$(".item-3").click(function(){			
+			var img = $(this).children().eq(1);			
+				if(img.hasClass("jiantou-down")){
+					//切换箭头
+					img.removeClass('jiantou-down').addClass('jiantou');
+					//显示item-4,item-5
+					$(".item-4").toggle();
+					$(".item-5").toggle();
+				}else{
+					img.addClass('jiantou-down').removeClass('jiantou');
+					$(".item-4").toggle();
+					$(".item-5").toggle();
+				}
+		})
+		//添加成员hover
+		$('.item1-img').hover(function(){
+			if($(".hover").hasClass("none")){
+				$(".hover").removeClass("none");
+			}else{
+				$(".hover").addClass("none");
+			}
+		})
+		//搜索框获取焦点
+		$(".item1-input").focus(function(){
+		  $(".item1-search").css("border","1px solid #06c")
+		});
+		//左侧导航栏选项卡切换
+		//企业信息
+		$(".item-4").click(function(){
+			if(!$(".item-4").hasClass("item-bg-color")){
+				$(".item-4").addClass("item-bg-color");
+				$(".item-2").removeClass("item-bg-color");
+				$(".item-5").removeClass("item-bg-color");
+				$(".main-r-item1").addClass("none");
+				$("table").addClass("none");
+				$(".account").addClass("none");
+				$(".information-all").removeClass("none");
+				
+			}
+		})
+		//成员管理
+		$(".item-2").click(function(){
+			if(!$(".item-2").hasClass("item-bg-color")){
+				$(".item-2").addClass("item-bg-color");
+				$(".item-4").removeClass("item-bg-color");
+				$(".item-5").removeClass("item-bg-color");
+				$(".main-r-item1").removeClass("none");
+				$("table").removeClass("none");
+				$(".account").addClass("none");
+				$(".information-all").addClass("none");
+			}
+		})
+		//管理员账号
+		$(".item-5").click(function(){
+			if(!$(".item-5").hasClass("item-bg-color")){
+				$(".item-5").addClass("item-bg-color");
+				$(".item-2").removeClass("item-bg-color");
+				$(".item-4").removeClass("item-bg-color");
+				$(".main-r-item1").addClass("none");
+				$("table").addClass("none");
+				$(".information-all").addClass("none");
+				$(".account").removeClass("none");
+			}
+		})
+		//添加成员弹出框
+		$(".item1-add-btn").click(function(){
+				$(".mask").show();
+				$(".modal-box").show();
+		})
+		//关闭
+		$(".modal-box-item1-img").click(function(){
+				$(".mask").hide();
+				$(".modal-box").hide();
+		})
+		//加载页面完成时左侧导航栏的高度
+		 $(function(){
+		 	var height=$(window).height();
+		 	$(".main-l").css("height",height);
+		 });
+		//左侧导航窗口可视高度
+		$(window).resize(function () {//当浏览器大小发生变化时发生的事件
+		    var height=$(window).height();
+		    $(".main-l").css("height",height);
+		});
+		//滚动条监听可视高度
+		$(window).scroll(function(event){
+			var s=$(window).scrollTop();
+			var height=$(window).height()+s;
+		    $(".main-l").css("height",height);
+   		});
+   		
+	</script>
+</html>
