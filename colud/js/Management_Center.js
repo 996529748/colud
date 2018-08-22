@@ -65,13 +65,13 @@ $(document).ready(function(){
 			        	var State=Data.status==1?"已锁定":"活动的";//状态
 			        	if(Data.roleName=='admin'){      		
 			        			html=`
-				        		<tr class="tr">
+				        		<tr class="tr tr1">
 									<th class="th-1">${Data.userId}</th>
 									<th class="th-2">${Data.userName}<img src="img/u1.png" title="管理员帐号"><img></th>
 									<th class="th-3">${Email}</th>
 									<th class="th-4">${Data.tel}</th>
 									<th class="th-5">${State}</th>
-									<th class="th-6 tr1 tr-1">
+									<th class="th-6 tr_1 tr-1">
 										<div class="Locking" disabled="disabled">锁定</div>
 										<div class="Delete" disabled="disabled">删除</div>
 									</th>

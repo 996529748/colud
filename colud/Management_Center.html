@@ -15,7 +15,8 @@
 	<script src="js/messages_zh.js"></script>
 	<script src='js/Delete.js'></script>
 	<script src="js/update.js"></script>
-	
+	<script src="js/lock.js"></script>
+	<script src="js/serch.js"></script>
 	<body>
 		<!--头部导航-->
 		<div class="header-nav">
@@ -47,8 +48,8 @@
 					<span>下载云办公套件</span>
 					<div class="download-div"></div>
 					<div class="download-drop">
-						<p><a href="#" target="_blank">福昕PDF编辑器</a></p>
-						<p><a href="#" target="_blank">福昕PDF转Word</a></p>
+						<p><a href="http://file.test.foxitreader.cn/edit/file/201803/FoxitPDFEditor_cGQ=.exe" target="_blank">福昕PDF编辑器</a></p>
+						<p><a href="http://file.foxitreader.cn/pdf2doc/update/website/FP2WSetup.exe" target="_blank">福昕PDF转Word</a></p>
 					</div>
 				</div>		
 				<!--进入云编辑-->
@@ -108,16 +109,16 @@
 							<ul>
 								<li class="modal-box-item2-1">
 									<span>*账号：</span>
-									<input class="modal-box-item2-1-input"  type="text" />
-									<span class="modal-box-item2-1-search">@liuzhen.foxitcloud.cn</span>									
+									<input class="modal-box-item2-1-input" id="user_id" name="user_id" type="text" />
+									<span class="modal-box-item2-1-search">@liuzhen.foxitcloud.cn</span>
 								</li>
 								<li class="modal-box-item2-2">
 									<span>*邮箱：</span>
-									<input class="modal-box-item2-2-input"  type="text" />									
+									<input class="modal-box-item2-2-input"  id="email" name="email" type="text" />									
 								</li>
 								<li class="modal-box-item2-3">
 									<span>*手机：</span>
-									<input class="modal-box-item2-3-input"  type="text" />
+									<input class="modal-box-item2-3-input" id="tel" name="tel" type="text" />
 								</li>
 								<li class="modal-box-item2-4">
 									<a class="modal-box-item2-3-btn">添加</a>
@@ -184,8 +185,7 @@
 							</th>
 							<th class="th6">操作</th>
 						</tr>
-					</thead>
-					
+					</thead>			
 				</table>
 				<!--企业信息-->
 				<div class="information-all none">
@@ -224,7 +224,7 @@
 							<li class="item-2-1">授权服务：<span>福昕云办公服务（包含福昕PDF编辑器客户端、福昕PDF转WORD客户端)</span></li>
 							<li class="item-2-2">订阅数量：
 								<span><span>0</span>个（已使用<span>0</span>个,剩余<span>0</span>个）</span>
-								<a class="increase" href="">增加数量</a>
+								<a class="increase" href="./buy.html?type=add_member" target="_blank">增加数量</a>
 							</li>
 							<li class="item-2-3 item-li-p">
 								<p class="item-2-3-p">限用户账号登录使用，同一用户最多支持3台浮动电脑上使用，不可同时在2台以上电脑使用</p>
@@ -232,7 +232,7 @@
 							</li>
 							<li class="item-2-4 item-2-4-1">授权书：
 								<span>授权书到期时间：</span>
-								<a class="authorization" href="">延长授权</a>
+								<a class="authorization" href="./buy.html?type=delay" target="_blank">延长授权</a>
 							</li>
 						</ul>
 					</div>
@@ -266,6 +266,14 @@
 						</form>
 					</div>
 				</div>
+				<!--页码-->
+				<div class="page">
+					<ul>
+						<li class="page-left"><a><</a></li>
+						<li class="page-number"><a>1</a></li>
+						<li class="page-right"><a>></a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -284,6 +292,7 @@
 					$(".item-2").toggle();
 				}
 		})
+		
 		//账号设置
 		$(".item-3").click(function(){			
 			var img = $(this).children().eq(1);			
@@ -307,6 +316,10 @@
 				$(".hover").addClass("none");
 			}
 		})
+		//添加成员，获取焦点后邮箱输入框背景变黄
+//		$(".modal-box-item2-2-input").focus(function(){
+//			$(".modal-box-item2-2-input").css("backgroundColor","rgb(250,255,189)")
+//		})
 		//搜索框获取焦点
 		$(".item1-input").focus(function(){
 		  $(".item1-search").css("border","1px solid #06c")
@@ -326,7 +339,10 @@
 				$("table").addClass("none");
 				$(".account").addClass("none");
 				$(".information-all").removeClass("none");
-				
+				$(".page").addClass("none");
+				/*管理员账号input*/
+				$('.account-item2-1').removeClass("none");
+   				$('.account-item2-2').addClass("none");
 			}
 		})
 		//成员管理
@@ -339,6 +355,13 @@
 				$("table").removeClass("none");
 				$(".account").addClass("none");
 				$(".information-all").addClass("none");
+				$(".page").removeClass("none");
+				/*企业信息input*/
+				$('.information-item2-2').addClass("none");
+   				$('.information-item2-1').removeClass("none");
+   				/*管理员账号input*/
+   				$('.account-item2-2').addClass("none");
+   				$('.account-item2-1').removeClass("none");
 			}
 		})
 		//管理员账号
@@ -351,6 +374,10 @@
 				$("table").addClass("none");
 				$(".information-all").addClass("none");
 				$(".account").removeClass("none");
+				$(".page").addClass("none");
+				/*企业信息input*/
+				$('.information-item2-1').removeClass("none");
+   				$('.information-item2-2').addClass("none");
 			}
 		})
 		//添加成员弹出框
