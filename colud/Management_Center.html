@@ -1,11 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>云办公管理中心</title>
 	</head>
 	<link rel="stylesheet" href="css/Management_Center.css" />
 	<link rel="stylesheet" href="css/globals.css" />
+	<script src="js/jquery.js"></script>
+	<script src="js/Sign_in.js"></script>
+	<script src="js/Management_Center.js"></script>	
+	<script src="js/Add_members.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/messages_zh.js"></script>
+	<script src='js/Delete.js'></script>
+	<script src="js/update.js"></script>
+	
 	<body>
 		<!--头部导航-->
 		<div class="header-nav">
@@ -17,14 +27,14 @@
 					</a>
 				</div>
 				<div class="header-r-drop">						
-						<span class="user-name">liuzhen@liuzhen.foxitcloud.cn</span>
+						<span class="user-name"></span>
 						<div class="header-r-logo"></div>
 						<div class="header-r-div"></div>
 					<div class="header_drop_con">
 						<div class="header-r-qq"></div>
-						<p class="header-r-number">996529748</p>
-						<p class="header-r-id">ID:30000762</p>
-						<p class="header-r-usernumber">liuzhen@liuzhen.foxitcloud.cn</p>
+						<p class="header-r-number"></p>
+						<p class="header-r-id"></p>
+						<p class="header-r-usernumber"></p>
 						<span class="header-r-line"></span>
 						<p><a href="" target="_blank">管理中心</a></p>
 						<p><a href="" target="_blank">修改密码</a></p>
@@ -87,9 +97,9 @@
 						</div>
 					</div>	
 				</div>
-				<!--弹出模态框-->
+				<!--弹出添加模态框-->
 				<div class="modal-box none">
-					<form action="">
+					<form action="" class="table">
 						<div class="modal-box-item1">
 							<h1>添加成员</h1>
 							<img class="modal-box-item1-img" src="img/u6.png" alt="" />
@@ -99,28 +109,65 @@
 								<li class="modal-box-item2-1">
 									<span>*账号：</span>
 									<input class="modal-box-item2-1-input"  type="text" />
-									<span class="modal-box-item2-1-search">@liuzhen.foxitcloud.cn</span>
+									<span class="modal-box-item2-1-search">@liuzhen.foxitcloud.cn</span>									
 								</li>
 								<li class="modal-box-item2-2">
 									<span>*邮箱：</span>
-									<input class="modal-box-item2-2-input"  type="text" />
+									<input class="modal-box-item2-2-input"  type="text" />									
 								</li>
 								<li class="modal-box-item2-3">
 									<span>*手机：</span>
 									<input class="modal-box-item2-3-input"  type="text" />
 								</li>
 								<li class="modal-box-item2-4">
-									<a class="modal-box-item2-3-btn" href="">添加</a>
+									<a class="modal-box-item2-3-btn">添加</a>
 								</li>
 							</ul>
 						</div>
 					</form>
 				</div>
+				<!--弹出修改模态框-->
+				<div class="modal-box-update none">
+					<form class="table">
+						<div class="modal-box-update-item">
+							<h1>修改成员信息</h1>
+							<img class="modal-box-update-item-img" src="img/u6.png" alt="" />
+						</div>
+						<div class="modal-box-update-item1">
+							<ul>
+								<li class="modal-box-update-li1">
+									<span>*账号：</span>
+									<input class="modal-box-update-li1-input"  type="text" disabled="disabled"/>
+									<span class="modal-box-item2-1-search">@liuzhen.foxitcloud.cn</span>									
+								</li>
+								<li class="modal-box-update-li2">
+									<span>*邮箱：</span>
+									<input class="modal-box-update-li2-input"  type="text" />									
+								</li>
+								<li class="modal-box-update-li3">
+									<span>*手机：</span>
+									<input class="modal-box-update-li3-input"  type="text" />
+								</li>
+								<li class="modal-box-update-li4">
+									<a class="modal-box-update-li4-btn">确认</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+				<!--添加成功模态框-->
+				<div class="success none">
+					<h1>添加成功!</h1>
+					<span>
+						<div class="success-btn1">继续添加</div>
+						<div class="success-btn2">关闭</div>
+					</span>
+				</div>
 				<!--遮罩层-->
 				<div class="mask none"></div>
 				<!--列表-->
 				<table>
-					<thead>
+					<thead class="thead">
 						<tr>
 							<th class="th1">ID</th>
 							<th class="th2">账号</th>
@@ -138,21 +185,35 @@
 							<th class="th6">操作</th>
 						</tr>
 					</thead>
+					
 				</table>
 				<!--企业信息-->
 				<div class="information-all none">
 					<div class="information-item1">
 						<h1>企业资料</h1>
-						<a href="">修改</a>
+						<a>修改</a>
 					</div>
 					<div class="information-item2">
-						<ul>
-							<li class="item-2-1">企业名称：<input class="input1" type="text" disabled="disabled"/></li>
-							<li class="item-2-2">企业域名：<input class="input2" type="text" disabled="disabled" value="liuzhen"/></li>
-							<li class="item-2-3">联系电话：<input class="input3" type="text" disabled="disabled"/></li>
-							<li class="item-2-4">联系地址：<input class="input4" type="text" disabled="disabled"/></li>
-							<li class="item-2-5">邮政编码：<input class="input5" type="text" disabled="disabled"/></li>
-						</ul>
+						<form class="form" >
+							<ul class="information-item2-1">
+								<li class="item-2-1">企业名称：<input class="input1" type="text" disabled="disabled" /></li>
+								<li class="item-2-2">企业域名：<input class="input2" type="text" disabled="disabled" /></li>
+								<li class="item-2-3">联系电话：<input class="input3" type="text" disabled="disabled" /></li>
+								<li class="item-2-4">联系地址：<input class="input4" type="text" disabled="disabled" /></li>
+								<li class="item-2-5">邮政编码：<input class="input5" type="text" disabled="disabled" /></li>
+							</ul>
+							<ul class="information-item2-2 none">
+								<li class="item-2-1">企业名称：<input class="input-1" type="text" /></li>
+								<li class="item-2-2">企业域名：<input class="input2" type="text" disabled="disabled"/></li>
+								<li class="item-2-3">联系电话：<input class="input-3" type="text" ></li>
+								<li class="item-2-4">联系地址：<input class="input-4" type="text" ></li>
+								<li class="item-2-5">邮政编码：<input class="input-5" type="text" ></li>
+								<li class="item-2-6">
+									<div class="Preservation">保存</div>
+									<div class="cancel">取消</div>
+								</li>			
+							</ul>	
+						</form>
 					</div>
 					<!--授权-->
 					<div class="authorization-item1">
@@ -180,23 +241,35 @@
 				<div class="account none">
 					<div class="account-item1">
 						<h1>账号信息</h1>
-						<a href="">修改</a>
+						<a>修改</a>
 					</div>
 					<div class="account-item2">
-						<ul>
-							<li class="item-2-1 item-2-1-id">ID：<input class="input1" type="text" disabled="disabled" value="30000762"/></li>
-							<li class="item-2-2">账号：<input class="input2" type="text" disabled="disabled" value="liuzhen@liuzhen.foxitcloud.cn"/></li>
-							<li class="item-2-3">姓名：<input class="input3" type="text" disabled="disabled" value="liuzhen"/></li>
-							<li class="item-2-4">邮箱：<input class="input4" type="text" disabled="disabled" /></li>
-							<li class="item-2-5">手机：<input class="input5" type="text" disabled="disabled" value="17758937232"/></li>
-						</ul>
+						<form>
+							<ul class="account-item2-1">
+								<li class="item-2-1 item-2-1-id">ID：<input class="input1" type="text" disabled="disabled"/></li>
+								<li class="item-2-2">账号：<input class="input2" type="text" disabled="disabled" /></li>
+								<li class="item-2-3">姓名：<input class="input3" type="text" disabled="disabled" /></li>
+								<li class="item-2-4">邮箱：<input class="input4" type="text" disabled="disabled" /></li>
+								<li class="item-2-5">手机：<input class="input5" type="text" disabled="disabled" /></li>
+							</ul>
+							<ul class="account-item2-2 none">
+								<li class="item-2-1 item-2-1-id">ID：<input class="input1" type="text" disabled="disabled"/></li>
+								<li class="item-2-2">账号：<input class="input2" type="text" disabled="disabled" /></li>
+								<li class="item-2-3">姓名：<input class="input-3" type="text" /></li>
+								<li class="item-2-4">邮箱：<input class="input-4" type="text" /></li>
+								<li class="item-2-5">手机：<input class="input-5" type="text" /></li>
+								<li class="account-item2-6">
+									<div class="Preservation-1">保存</div>
+									<div class="cancel-1">取消</div>
+								</li>
+							</ul>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
 
-	<script src="js/jquery.js"></script>
 	<script>
 		//账号管理
 		$(".item-1").click(function(){			
@@ -237,6 +310,10 @@
 		//搜索框获取焦点
 		$(".item1-input").focus(function(){
 		  $(".item1-search").css("border","1px solid #06c")
+		});
+		//搜索框失去焦点
+		$(".item1-input").blur(function(){
+		  $(".item1-search").css("border","1px solid #d3d3d3")
 		});
 		//左侧导航栏选项卡切换
 		//企业信息
@@ -301,7 +378,35 @@
 			var s=$(window).scrollTop();
 			var height=$(window).height()+s;
 		    $(".main-l").css("height",height);
-   		});
-   		
+   		});   
+   		//修改企业信息
+   		$('.information-item1>a').click(function(){
+   			if(!$('.information-item2-1').hasClass("none")){  				
+   				$('.information-item2-1').addClass("none");
+   				$('.information-item2-2').removeClass("none");
+   			}
+   		})
+		//取消
+		$('.cancel').click(function(){
+			if($('.information-item2-1').hasClass("none")){  				
+   				$('.information-item2-1').removeClass("none");
+   				$('.information-item2-2').addClass("none");
+   			}
+		})
+   		//修改管理员账号
+   		$('.account-item1>a').click(function(){
+   			if(!$('.account-item2-1').hasClass("none")){  				
+   				$('.account-item2-1').addClass("none");
+   				$('.account-item2-2').removeClass("none");
+   			}
+   		})
+   		//取消
+		$('.cancel-1').click(function(){
+			if($('.account-item2-1').hasClass("none")){  				
+   				$('.account-item2-1').removeClass("none");
+   				$('.account-item2-2').addClass("none");
+   			}
+		})
+		
 	</script>
 </html>
