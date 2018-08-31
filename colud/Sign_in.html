@@ -29,6 +29,22 @@
 			color:#FFFFFF;
 			cursor: pointer;
 		}
+		.Sign{
+			border:1px solid #D3D3D3;;
+			width: 470px;
+			height: 132px;
+			position: absolute;
+		    margin-left: 33%;
+		    top: 275px;
+		    background-color: #FFFFFF;
+		    z-index: 999999;
+		}
+		.Sign>h1,.Sign>h3{
+			text-align: center;
+		}
+		.none{
+			display: none;
+		}
 	</style>
 	<body>
 		<div class="sign_in">
@@ -36,7 +52,11 @@
 			<span>密码</span><input type="password" class="password"/>
 			<div class="sign_in_btn">登录</div>
 		</div>
-		
+		<!--添加成功模态框-->
+		<div class="Sign none">
+			<h1>登录失败!</h1>
+			<h3>请核对您的账号或密码！！！</h3>
+		</div>
 	</body>
 	<script src="js/jquery.js"></script>
 	<script src="js/Sign_in.js"></script>

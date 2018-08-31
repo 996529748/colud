@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>jqPaginator</title>
+    <link type="text/css" rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>
+</head>
+<body style="padding:10px;">
+    <p id="p1"></p>
+    <ul class="pagination" id="pagination1"></ul>
+    <p id="p2"></p>
+    <ul class="pagination" id="pagination2"></ul>
+    <table border="1">
+        <thead class="thead"></thead>
+    </table>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jqPaginator.js"></script>
+<script type="text/javascript">
+    $.jqPaginator('#pagination1', {
+        totalPages: 100,
+        visiblePages: 10,
+        currentPage: 3,
+        onPageChange: function (num, type) {
+            $('#p1').text(type + '：' + num);
+        }
+    });
+    $.jqPaginator('#pagination2', {
+        totalPages: 100,
+        visiblePages: 1,
+        currentPage: 3,
+        prev: '<li class="prev"><a href="javascript:;">Previous</a></li>',
+        next: '<li class="next"><a href="javascript:;">Next</a></li>',
+        page: '<li class="page"><a href="javascript:;">{{page}}/{{totalPages}}</a></li>',
+
+            $.ajax({
+                type: "GET",
+                url: "json/data.json",
+                data: { PageIndex: num, PageSize: 2 },
+                success: function (result) {
+                    console.log(result);
+                    var DATA=result.data;
+                    for (var i = 0; i < DATA.length; i++) {
+                        var  Data=DATA[i];
+                        var html = '';
+                        html = `
+                        <tr class="tr">
+                          <th class="th-1">${Data.userId}</th>
+                          <th class="th-2">${Data.userName}</th>
+                          <th class="th-3">${Data.email}</th>
+                          <th class="th-4">${Data.tel}</th>
+                          <th class="th-5">${Data.status}</th>
+                          <th class="th-6">
+                            <div class="locking" disabled="disabled">锁定</div>
+                            <div class="delete" disabled="disabled">删除</div>
+                            <div class="updata" disabled="disabled">修改</div>
+                          </th>
+                        </tr>
+                            `;
+                    }
+                    $('.thead').append(html);
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

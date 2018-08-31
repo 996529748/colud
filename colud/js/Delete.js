@@ -1,20 +1,46 @@
 $(document).ready(function(){	
-	$("table>.thead").on("click",".delete>a",function(){
-		console.log($(this).parent().parent().parent())
-		var ID=$(this).parent().parent().parent().children().eq(0)
-		var ID_1=$(this).parent().parent().parent()
-		$.ajax({
-			type:"get",
-			url:"http://vip.foxitreader.cn/enterprise/deleteEnterpriseUser",
-			dataType:"jsonp",
-			data:{
-				userId:ID.html()				
-			},
-			jsonp:'jsonpcallback',
-			success:function(){
-				//移除页面Dom
-				ID_1.remove()
-			}
-		})
+	var ID
+	var ID_1
+	$("table>.tbody").on("click",".delete>a",function(){
+		//弹窗，是否确定删除
+				 ID=$(this).parent().parent().parent().children().eq(0)
+				 ID_1=$(this).parent().parent().parent()
+				console.log($(this).parent().parent().parent())
+				console.log(ID);
+				var Popup="";
+				Popup=
+					'<div class="Popup">'+
+					'<h1>确定删除吗?</h1>'+
+					'<span>'+
+						'<div class="Popup-btn1">确定</div>'+
+						'<div class="Popup-btn2">取消</div>'+
+					'</span>'+
+					'</div>'
+				;
+				$(".main").append(Popup);
 	})
+	
+		//确定按钮被点击
+		$("body").on("click",".Popup-btn1",function(){			
+			$.ajax({
+				type:"get",
+				url:"http://vip.foxitreader.cn/enterprise/deleteEnterpriseUser",
+				dataType:"jsonp",
+				data:{
+					userId:ID.html(),				
+				},
+				jsonp: 'jsonpcallback',
+				success:function(){
+					//移除页面Dom
+					ID_1.remove()
+				}
+			});
+			$(".Popup").addClass("none");
+		})
+		
+		//取消删除
+		$("body").on("click",".Popup-btn2",function(){
+			$(".Popup").addClass("none");
+			return;
+		})
 })
