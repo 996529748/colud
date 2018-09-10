@@ -1,0 +1,381 @@
+body {
+    background: #f9f9f9;
+}
+/*header-left*/
+.header-nav{
+	background:#fff;
+	height: 50px;
+}
+.header-logo>a>img:first-child{
+	margin: 10px 5px 0 20px;
+    width: 48px;
+    height: 35px;
+}
+.header-logo>a>img{
+	float:left;
+	margin-top: 12px;
+}
+.header-logo{
+	margin-left: 3%;
+}
+/*header-right*/
+.header-r{
+	float:right;
+	margin-right: 3%;
+}
+.header-r>p{
+	float:left;
+	height: 50px;
+	line-height: 50px;
+	margin-right: 30px;
+}
+.header-r>p>a{
+	font-size: 13px;
+}
+.btn_registe{
+	display:block;
+	width: 100px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 5px;
+    font-weight: 400;
+    font-style: normal;
+    background: #06c;
+    text-align: center;
+    color:#fff;
+}
+.header-r>p>a:hover{
+	color:#06c;
+}
+.btn_registe:hover{
+	color:#fff;
+	background: #0081e8;
+}
+/*main*/
+.logo>img:first-child{
+	margin: 10px 5px 0 20px;
+    width: 48px;
+    height: 35px;
+}
+.logo{
+	text-align: center;
+}
+.main{
+	width: 1000px;
+    margin:57px auto 0;
+}
+.main-m{
+	width: 370px;
+    margin: 0 auto;
+}
+.main-m-text{
+    font-style: normal;
+    font-size: 15px;
+    color: #434343;
+    margin-bottom: 10px;
+    margin-top: 32px;
+}
+/*main_table*/
+.main_table{
+	width: 363px;
+}
+.form-1{
+	height: 36px;
+	position: relative;
+}
+.form-1-1,.form-1-2,.form-1-3,.form-1-4{
+	float:left;
+}
+.form-1-1{
+	width: 105px;
+    height: 34px;
+	outline:0;
+	border: 1px solid #ccc;
+	line-height: 34px;
+	text-indent: 10px;
+	border-radius: 3px;
+}
+.form-1-2{
+	width: 105px;
+    height: 34px;
+    line-height: 34px;
+	outline:0;
+	border: 1px solid #ccc;
+	text-indent: 10px;
+	border-radius: 3px;
+}
+.form-1-3{
+	display:block;
+	height: 34px;
+	width: 25px;
+	line-height: 34px;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-right:0px;
+	border-left:0px;
+}
+.form-1-4{
+	display:block;
+	height: 34px;
+	width: 123px;
+	line-height: 34px;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-left:0px;
+}
+.form-1-text1,.form-1-text2{
+	font-style: normal;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    width: 100%;
+    float: left;
+}
+.form-1-text1{
+	margin-top:6px;
+}
+.h1{
+	font-weight: 800;
+}
+/*设置密码*/
+.set_password{
+	width: 360px;
+	height: 36px;
+	line-height: 36px;
+	margin-bottom: 16px;
+	text-indent: 10px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	margin-top:6px;
+}
+.Password_input{
+	width: 360px;
+	height: 36px;
+	line-height: 36px;
+	margin-bottom: 16px;
+	text-indent: 10px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	margin-top:6px;
+}
+.confirm_password{
+	width: 360px;
+	height: 36px;
+	line-height: 36px;
+	text-indent: 10px;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	margin-bottom: 16px;
+}
+/*手机号--验证码*/
+.tel_number,.verification_code,.button{
+	float:left;
+	font-size: 14px;
+	text-indent: 10px;
+	border-radius: 3px;
+	line-height: 36px;
+}
+.tel_number{
+	width: 141px;
+	height: 36px;
+	border: 1px solid #ccc;
+}
+.verification_code{
+	width: 70px;
+	height: 36px;
+	margin: 0 15px;
+	border: 1px solid #ccc;
+	background: #f2f2f2;
+	color:#CBCBCB;
+	font-size: 13px;
+}
+/*按钮样式*/
+.button{
+	width: 95px;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    cursor: default;
+   	background: #bbb;
+    color:#FFFFFF;
+}
+/*按钮样式*/
+.disabled{
+	background: #06c !important;
+    cursor: pointer;
+    color: #fff;
+}
+/*禁用点击*/
+.click_disable{
+	pointer-events: none;
+}
+/*创建账号按钮*/
+.Establish-btn{
+	width: 100%;
+	background: #06c;
+	text-align: center;
+	margin-top: 16px;
+	height: 42px;
+	line-height: 42px;
+	color:#FFFFFF;
+	cursor: pointer;
+}
+.Establish-btn:hover{
+	background: #0081e8;
+}
+/*同意条款*/
+.footer{
+	font-size:12px;
+	margin-top: 20px;
+	margin-left:75px;
+}
+.footer-img,.footer-span,.footer-a{
+	float:left;
+}
+.footer-a:hover{
+	color:#06c;
+	text-decoration: underline;
+}
+/*验证码*/
+.verification_code{
+	color:#333
+}
+/*验证表单*/
+#Password-error{
+	color:red;
+	font-size:13px;
+	position:absolute;
+	left: 2px;
+    top: 45px;
+}
+#tel-error{
+	color:red;
+	font-size:13px;
+	position:absolute;
+	left: 2px;
+    top: 43px;
+}
+#Pass_word-error{
+	color:red;
+	font-size:13px;
+	position:absolute;
+	left: 2px;
+    top: 43px;
+}
+#Domain_name-error{
+	color:red;
+	font-size:13px;
+	position:absolute;
+	left: 135px;
+    top: 35px;
+}
+#User-error{
+	color:red;
+	font-size:13px;
+	position:absolute;
+	left: 2px;
+    top: 35px;
+}
+#verification_code-error{
+	color:red;
+	font-size:13px;
+	position:absolute;
+	left: 160px;
+    top: 43px;
+}
+.background{
+	background:#bbb !important;
+	text-align: center !important;
+	text-indent: 0!important;
+	cursor: default !important;
+}
+/*间距*/
+.main .form-1 .error[aria-required=true][name=User]{
+	margin-bottom: 35px;
+}
+.main .form-1 .error[aria-required=true][name=Domain_name]{
+	margin-bottom: 35px;
+}
+.main  .error[aria-required=true][name=Password]{
+	margin-bottom: 35px;
+}
+.main .error[aria-required=true][name=Pass_word]{
+	margin-bottom: 35px;
+}
+.main  .error[aria-required=true][name=tel]{
+	margin-bottom: 35px;
+}
+.main  .error[aria-required=true][name=verification_code]{
+	margin-bottom: 35px;
+}
+/**/
+.Mobile_verification_code,.confirmpassword,.setpassword{
+	position:relative;
+}
+
+/*弹框*/
+.success_popup{
+	border:1px solid #D3D3D3;;
+	width: 470px;
+	height: 400px;
+	position: absolute;
+    margin-left: 38%;
+    top: 135px;
+    background-color: #FFFFFF;
+    z-index: 999999;
+}
+.success_popup>.popup>img{
+	margin: 30px auto 30px;
+    display: block;
+}
+.success_popup>.popup>span{
+	text-align: center;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #0c6;
+    display: block;
+    margin-bottom: 30px;
+}
+.admin_account>div{
+	width: 450px;
+	margin: auto;
+	text-align: center;
+	height: 25px;
+	line-height: 25px;
+}
+.success_userid{
+	height: 25px;
+	line-height: 25px;
+}
+.btn-star{
+    width: 360px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #fff !important;
+    background: #06c;
+    border: none;
+    margin: 0 auto;
+    display: block;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.btn-star:hover{
+	background: #0081e8;
+}
+.none{
+	display:none;
+}
+.success_userid{
+	text-align: center;
+    margin-bottom: 40px;
+}
+/**/
+.phcolor{
+	color:#A9A9A9
+}

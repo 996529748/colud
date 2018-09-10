@@ -3,7 +3,6 @@ $(document).ready(function(){
 	var ID=$(this).parent().parent().parent().children().eq(0);
 	var lock=$(this).parent().parent().parent().children().eq(4);
 	var State=lock=="已锁定"?1:0
-	console.log(ID);
 	$("table>.tbody").on("click",".locking>a",function(){
 		$.ajax({
 			type:"get",
@@ -15,7 +14,6 @@ $(document).ready(function(){
 			dataType:"jsonp",	
 			jsonp:'jsonpcallback',
 			success:function(data){
-				console.log(data);
 				//弹框提示
 				//点击解锁提示
 				$(".lock").removeClass("none");	

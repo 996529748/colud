@@ -1,16 +1,30 @@
 $(document).ready(function(){
 	$.ajax({
 		type:"get",
-		url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
+		url:"http://vip.foxitreader.cn/getUserInfoApi",
 		dataType: "jsonp",
         jsonp: 'jsonpcallback',
         success:function(data){
-//      			console.log(data);       					
-							//右上角账号信息
-							$(".header-r-number").html(data.data[0].nickName);
-				        	$(".user-name").html(data.data[0].userName);
-				        	$(".header-r-usernumber").html(data.data[0].userName);
-				        	$(".header-r-id").html("ID:"+data.data[0].userId);
+        	if(data.ret !== 302){//如果不处于未登录转态
+	        	if(data.data.roleName === 'admin'){//为企业账号，填写信息
+	        		$(".header-r-number").html(data.data.nickname);
+					$(".user-name").html(data.data.userName);
+					$(".header-r-usernumber").html(data.data.userName);
+					$(".header-r-id").html("ID:"+data.data.userId);
+	        	}else{//否则跳转到登录页
+//	        		window.location.href = 'http://vip.foxitreader.cn/userCenter';
+	        	}
+        	}else{//跳转到主页
+//      			window.location.href = 'http://work.foxitcloud.cn/index.html';
+        	}
+        }
+	})
+	$.ajax({
+		type:"get",
+		url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
+		dataType: "jsonp",
+        jsonp: 'jsonpcallback',
+        success:function(data){     					
 				        	//管理员账号初始数据渲染
 							$(".account-item2-2>.item-2-1>.input1").val(data.data[0].userId);
 							$(".account-item2-2>.item-2-2>.input2").val(data.data[0].userName);
@@ -19,8 +33,7 @@ $(document).ready(function(){
 							$(".account-item2-2>.item-2-5>.input-5").val(data.data[0].tel);
 							//企业信息渲染数据
 							//添加域名
-							$(".modal-box-item2-1-search").html("@"+data.data[0].companyDomain+".foxitcloud.cn");
-							
+							$(".modal-box-item2-1-search").html("@"+data.data[0].companyDomain+".foxitcloud.cn");							
 							$(".information-item2-2>.item-2-2>.input2").val(data.data[0].companyDomain);//域名					
 							/*企业账号修改渲染*/
 							$.ajax({
@@ -60,7 +73,6 @@ $(document).ready(function(){
 				                debug: false, //调试模式   true取消submit的默认提交功能   
 				                //errorClass: "label.error", //默认为错误的样式类为：error   
 				                focusInvalid: true, //当为false时，验证无效时，没有焦点响应     //提交表单后,未通过验证的表单(第一个或提交之前获得焦点的未通过验证的表单)会获得焦点 默认:true   
-				                onkeyup: true,   //是否在敲击键盘时验证 默认:true
 				                submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form     
 				                    form.submit();   //提交表单   
 				                },  
@@ -77,8 +89,8 @@ $(document).ready(function(){
 				                    postalcode:{
 				                        required:true,
 				                        digits:true, 
-				                        minlength:7,
-				                        maxlength:7
+				                        minlength:6,
+				                        maxlength:6
 				                    },               
 				                },
 				                messages:{
@@ -108,7 +120,6 @@ $(document).ready(function(){
 				                debug: false, //调试模式   true取消submit的默认提交功能   
 				                //errorClass: "label.error", //默认为错误的样式类为：error   
 				                focusInvalid: true, //当为false时，验证无效时，没有焦点响应     //提交表单后,未通过验证的表单(第一个或提交之前获得焦点的未通过验证的表单)会获得焦点 默认:true   
-				                onkeyup: true,   //是否在敲击键盘时验证 默认:true
 				                submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form     
 				                    form.user_submit();   //提交表单   
 				                },  
@@ -166,7 +177,6 @@ $(document).ready(function(){
 				},
 				jsonp: 'jsonpcallback',
 				success:function(data){
-					console.log(data);
 					//保存的DOM操作
 					$(".information-item2-2>.item-2-1>.input-1").removeClass("border");
 			   		$(".information-item2-2>.item-2-3>.input-3").removeClass("border");
@@ -193,7 +203,6 @@ $(document).ready(function(){
 				},
 				jsonp:'jsonpcallback',
 				success:function(data){
-					console.log(data);
 					$(".account-item2-2>.item-2-3>.input-3").val($(".account-item2-2>.item-2-3>.input-3").val());//姓名
 					$(".account-item2-2>.item-2-4>.input-4").val($(".account-item2-2>.item-2-4>.input-4").val());//邮箱
 					$(".account-item2-2>.item-2-5>.input-5").val($(".account-item2-2>.item-2-5>.input-5").val());//手机
@@ -232,12 +241,59 @@ $(document).ready(function(){
 				$(".tr1").hide();
 				$(".th-5").filter(":contains('"+$(this).html()+"')").parent().show();
 			}else if(text=="锁定的"){
-				console.log(1);
 				$(".tr1").hide();
 				$(".th-5").filter(":contains('"+"锁"+"')").parent().show();
 			}
 		})	 
+		//判断浏览器是否支持placeholder属性
+	    var supportPlaceholder = 'placeholder' in document.createElement('input');
 	
+	    var placeholder = function placeholder(input) {
 	
+	      var text = input.attr('placeholder'),
+	          defaultValue = input.defaultValue;
+	
+	      if (!defaultValue) {
+	
+	        input.val(text).addClass("phcolor");
+	      }
+			
+	      input.focus(function () {
+	
+	        if (input.val() == text) {
+	
+	          $(this).val("");
+	          //修改属性
+	        }
+	      });
+	
+	      input.blur(function () {
+	
+	        if (input.val() == "") {
+	
+	          $(this).val(text).addClass("phcolor");
+	        }
+	      });
+	
+	      //输入的字符不为灰色
+	      input.keydown(function () {
+	
+	        $(this).removeClass("phcolor");
+	      });
+	    };
+	
+	    //当浏览器不支持placeholder属性时，调用placeholder函数
+	    if (!supportPlaceholder) {
+	
+	      $('input').each(function () {
+	
+	        text = $(this).attr("placeholder");
+	
+	        if ($(this).attr("type") == "text" || $(this).attr("type") == "password") {
+	
+	          placeholder($(this));
+	        }
+	      });
+	    }
 })
 

@@ -242,6 +242,11 @@ body{
     margin-left: 210px;
 }
 
+.main{
+	min-width: 1200px;
+	width: 100%;
+    min-height: 100%;
+}
 /*导航左*/
 .main-l,.main-r{
 	float:left
@@ -395,6 +400,7 @@ table{
 	width: 100%;
 	margin-top:20px;
 	cursor: default;
+	min-width: 955px;
 }
 tr{
 	background: #efefef;
@@ -512,17 +518,20 @@ th{
 	border:1px solid #0066CC;
 }
 .modal-box-item2-1-search{
-	display: inline-block;
-	width: 176px;
-	height: 36px;
-	font-size: 13px;
-	text-align: center;
-	line-height: 36px;
-	background: #ededed;
-	border: 1px solid #ccc;
-	cursor: text;
-	margin-left:-4px;
-	border-left: 0px;
+	width: 169px;
+    height: 36px;
+    line-height: 36px;
+    outline: 0;
+    text-indent: 10px;
+    font-family: "微软雅黑";
+    margin-top: 30px;
+    font-size: 13px;
+    background: #ededed;
+    border: 1px solid #ccc;
+    cursor: text;
+    margin-left: -4px;
+    border-left: 0px;
+    display: inline-block;
 }
 .modal-box-item2-2-input,.modal-box-item2-3-input{
 	width: 344px;
@@ -560,7 +569,14 @@ th{
     height: 100%;
 	background-color: #000;
     opacity: 0.3;
-    z-index:999;
+     z-index:999;
+    /*兼容ie8及以下*/
+	-khtml-opacity:0.3;
+	-moz-opacity:0.3;
+	filter:alpha(opacity=30);
+	filter:"alpha(opacity=30)";
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
+   
 }
 /*企业信息*/
 .information-item1{
@@ -656,6 +672,7 @@ th{
 	line-height:23px;
 	font-size: 12px;
 	margin-left:20px;
+	cursor: pointer;
 }
 .item-2-1-id{
 	text-indent: 15px;
@@ -769,7 +786,6 @@ input[disabled]{
 	background-color: #FFFFFF;
 }
 .tr{
-	border-bottom: 1px solid #efefef;
 	color:#000000 !important;
 	}
 .th-6>div{
@@ -829,6 +845,7 @@ input[disabled]{
     font-style: normal;
     font-size: 14px;
     color: #8d8d8d;
+    border-bottom: 1px solid #efefef;
 }
 .tr_1{
 	font-weight: 400;
@@ -914,8 +931,8 @@ input[disabled]{
 	float:left;
 }
 .Page{
-	position: fixed;
-	bottom:0px;
+	position: absolute;
+	top: 850px;
 }
 .paginationjs-prev>a,.paginationjs-next>a{
 	min-width: 30px;
@@ -1082,3 +1099,4 @@ a{
 	color:#0066CC
 }
 input[disabled]{color:#333;opacity:1}
+

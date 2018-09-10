@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册页</title>
+		<link rel="stylesheet" href="./css/registe.css"/>
+		<link rel="stylesheet" href="./css/globals.css"/>
+	</head>
+	<body>
+		<!--头部导航-->
+		<div class="header-nav">
+				<div class="header-logo">
+					<a href="">
+						<img src="img/u8.png" alt="" />
+						<img src="img/u12.png" alt="" />						
+					</a>
+				</div>
+				<div class="header-r">											
+						<p><a href="" target="_blank">管员登录</a></p>
+						<p><a href="" target="_blank">成员登录</a></p>
+						<p><a class="btn_registe" href="">立即注册</a></p>
+				</div>	
+		</div>
+		<!--注册表单-->
+		<div class="main">
+			<div class="main-m">
+				<h2 class="logo">
+					<img src="img/u8.png" alt="" />
+					<img src="img/u12.png" alt="" />
+				</h2>
+				<div class="main_table">
+					<p class="main-m-text">创建管理员账号</p>
+					<form class="form" autocomplete="off">
+						<div class="form-1">
+							<input class="form-1-1" type="text" placeholder="用户名" id="User" name="User" aria-required="true"/>
+							<span class="form-1-3">@</span>
+							<input class="form-1-2" type="text" placeholder="企业域名" id="Domain_name" name="Domain_name"aria-required="true"/>
+							<span class="form-1-4">.foxitcloud.cn</span>
+						</div>
+						<p class="form-1-text1">登录云办公时使用的账号，用户名和域名可自由创建，格式为字</p>
+						<p class="form-1-text2">母、数字或字母+数字的组合。如：<span class="h1">foxit</span>@<span class="h1">foxit</span>.foxitcloud.cn</p>
+						<div style="clear: both;"></div>
+					<!--设置密码-->
+						<div class="setpassword">
+							<input class="set_password" type="password" placeholder="设置密码"  aria-required="true" id="Password" name="Password"/>				
+						</div>
+					<!--确认密码-->
+						<div class="confirmpassword">
+							<input class="confirm_password" type="password" placeholder="确认密码" aria-required="true" id="Pass_word" name="Pass_word"/>
+						</div>
+					<!--验证码-->
+						<div class="Mobile_verification_code">
+							<input class="tel_number" placeholder="手机号" type="text" id="tel" name="tel" aria-required="true"/>
+							<input class="verification_code" placeholder="验证码" disabled="disabled" type="text" aria-required="true" id="verification_code" name="verification_code"/>
+							<div class="button">发送验证码</div>
+						</div>						
+					</form>
+					<div style="clear: both;"></div>
+					<div class="Establish-btn">创建账号</div>
+					<div class="footer">
+						<img class="footer-img" src="img/u11.png" alt="" />
+						<span class="footer-span">同意并接受</span>
+						<a class="footer-a" href="" target="_blank">《福昕云办公服务条款》</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--弹窗-->
+		<div class="success_popup none">
+			<div class="popup">
+					<img src="img/u9.png" alt="注册成功">
+					<span>云办公账号创建成功</span>
+					<div class="admin_account">
+						<div>管理员账号：</div>
+						<p class="success_userid"></p>
+					</div>
+					<a class="btn-star" href="https://sso.foxitreader.cn/login?service=http://vip.foxitreader.cn/shiro-cas&loginParam=enterprise">开始使用</a>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery.js"></script>
+	<script src="js/md5.js"></script>
+	<script src="js/jquery.validate.js"></script>
+	<script src="js/messages_zh.js"></script>
+	<script src="js/registe.js"></script>
+</html>

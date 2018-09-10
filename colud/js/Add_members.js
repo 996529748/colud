@@ -1,19 +1,66 @@
 $(document).ready(function(){
-//表单验证
-//	jQuery.validator.addMethod("modal-box-item2-1-input",function(value,element){
-//      var regular = /^([0-9]*)+$/;//正则
-//      return this.optional(element) || (!regular.test(value));
-//  },"只能为数字和字母的组合！");
-//	jQuery.validator.addMethod("modal-box-item2-2-input",function(value,element){
-//      var regular = /^1[3|4|5|7|8]\d{9}$/;//正则
-//      return this.optional(element) || (!regular.test(value));
-//  },"只能为纯数字的组合！");
-//	jQuery.validator.addMethod("modal-box-item2-3-input",function(value,element){
-//      var regular = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;//正则
-//      return this.optional(element) || (!regular.test(value));
-//  },"只能为数字和字母及@的组合！");
+	function paging(){
+	     $('#page').pagination({
+	        dataSource: function(done) {
+	                        $.ajax({
+	                            type: 'get',
+	                            url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
+	                            dataType: "jsonp",
+	                            jsonp: 'jsonpcallback',
+	                            success: function(response) {
+	                              done(response.data);
+	                            }
+	                        });
+	                     } ,//总数据
+	        pageSize: 12,//每页条数
+	        prevText:"<",
+	        nextText:">",
+	        callback: function(data, pagination) {
+	          var html='';
+	          for(var i=0;i<data.length;i++){
+	            var Data=data[i];
+	            var State=Data.status==1?"已锁定":"活动的";//状态
+	            var Email=Data.email==undefined?"":Data.email;//是否绑定邮箱
+	            if(Data.roleName=='admin'){      		
+			        			html=
+				        		'<tr class="tr tr1 thead-tr">'+
+									'<th class="th-1 thead-th-1">'+Data.userId+'</th>'+
+									'<th class="th-2 thead-th-2">'+Data.userName+'<img src="img/u1.png" title="管理员帐号"><img></th>'+
+									'<th class="th-3 thead-th-3">'+Email+'</th>'+
+									'<th class="th-4 thead-th-4">'+Data.tel+'</th>'+
+									'<th class="th-5 thead-th-5">'+State+'</th>'+
+									'<th class="th-6 tr_1 tr-1 thead-th-6">'+
+										'<div class="Locking" readonly="readonly">锁定</div>'+
+										'<div class="Delete" readonly="readonly">删除</div>'+
+									'</th>'+
+								'</tr>'
+					        	;					        								
+						//成员列表渲染
+			        	}else{
+			              html+=
+			                '<tr class="tr1">'+
+			                  '<th class="th-1">'+Data.userId+'</th>'+
+			                  '<th class="th-2">'+Data.userName+'</th>'+
+			                  '<th class="th-3">'+Email+'</th>'+
+			                  '<th class="th-4">'+Data.tel+'</th>'+
+			                  '<th class="th-5">'+State+'</th>'+
+			                  '<th class="th-6">'+
+			                    '<div class="locking" readonly="readonly"><a>解锁<a/></div>'+
+			                    '<div class="delete" readonly="readonly"><a>删除<a/></div>'+
+			                    '<div class="update" readonly="readonly"><a>修改<a/></div>'+
+			                  '</th>'+
+			                '</tr>'
+			              ;
+	             }//else
+	          }
+	          $('.tbody').html(html);
+	        }
+	    })
+	  }
+
+
 	var i=1;
-	$('.modal-box-item2-3-btn').click(function(){		console.log(1)
+	$('.modal-box-item2-3-btn').click(function(){
 		if($(".table").validate().form()){//表的验证插件是否验证通过完毕
 			//提交添加请求
 			$.ajax({
@@ -28,7 +75,6 @@ $(document).ready(function(){
 		        },
 		        //获取用户信息
 		        success:function(data){
-		        	console.log(data);
 		        	$.ajax({
 		        		type:"get",
 		        		url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
@@ -36,9 +82,6 @@ $(document).ready(function(){
 		        		data:{},
 		        		jsonp:'jsonpcallback',
 		        		success:function(data){
-		        			//刷新页面
-							window.location.reload();
-		        			console.log(data);
 		        			//渲染页面
 		        			var Data1=data.data;        			
 				        	for(i;i<Data1.length;i++){
@@ -61,17 +104,21 @@ $(document).ready(function(){
 						        	;
 						        $('.tbody').append(html);
 		        			}
-
+				        	paging();//请求页面
 				        }
 		        	})
-		       	//*弹出添加成功弹框
-		       	$('.modal-box').addClass("none");
-		       	$(".success").removeClass("none");
-		       	
-		        },
-			});//ajax
+		        	
+		       		//*弹出添加成功弹框
+					$('.modal-box').addClass("none");
+					$(".success").removeClass("none");
+					
+					
+		        },		        
+			});//ajax			
 		}
+		
 	});
+	
 	//右上角关闭
 		$(".modal-box-item1-img").click(function(){
 				$(".mask").hide();
@@ -93,6 +140,11 @@ $(document).ready(function(){
 	$(".success-btn1").click(function(){
 		$(".success").addClass("none");
 		$('.modal-box').removeClass("none");
+		//清空input
+		$(".modal-box-item2-1-input").val("");
+		$(".modal-box-item2-2-input").val("");
+		$(".modal-box-item2-3-input").val("");
+		
 	})
 	
 
@@ -120,7 +172,8 @@ $(document).ready(function(){
                     tel:{
                         required:true,
                         digits:true, 
-                        minlength:11
+                        minlength:11,
+                        maxlength:11
                     },               
                 },
                 messages:{
@@ -134,7 +187,8 @@ $(document).ready(function(){
                     },
          			tel:{
          				required:"请填写您的手机号",
-         				minlength:"请输入正确的手机号"
+         				minlength:"请输入正确的手机号",
+         				maxlength:"请输入正确的手机号"
          			}
                 }
                           
