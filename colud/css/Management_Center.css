@@ -529,9 +529,9 @@ th{
     background: #ededed;
     border: 1px solid #ccc;
     cursor: text;
-    margin-left: -4px;
     border-left: 0px;
     display: inline-block;
+    vertical-align: bottom;
 }
 .modal-box-item2-2-input,.modal-box-item2-3-input{
 	width: 344px;
@@ -1100,3 +1100,19 @@ a{
 }
 input[disabled]{color:#333;opacity:1}
 
+.layui-layer .layui-layer-title{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #666;
+    height: 63px;
+    line-height: 63px;
+    background: #fff;
+    border-bottom: 1px solid #d3d3d3;
+}
+.layui-layer .layui-layer-setwin .layui-layer-close1 {
+    margin: 3px 8px 0 0;
+    background: url(../img/u6.png) no-repeat;
+    width: 24px;
+    height: 24px;
+}

@@ -1,7 +1,7 @@
 $(document).ready(function(){	
      //点击修改
 	$("table>.tbody").on("click",".update>a",function(){
-		ID=$(this).parent().parent().parent().children();
+		ID=$(this).parents().children();
 		//点击确认，发送ajax请求
 			$(".modal-box-update-li4-btn").click(function(){
 				if($(".update-btn").validate().form()){//表单是否验证完毕

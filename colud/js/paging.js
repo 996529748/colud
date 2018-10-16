@@ -47,7 +47,7 @@ $(document).ready(function(){
 			                  '<th class="th-5">'+State+'</th>'+
 			                  '<th class="th-6">'+
 			                    '<div class="locking" readonly="readonly"><a>解锁<a/></div>'+
-			                    '<div class="delete" readonly="readonly"><a>删除<a/></div>'+
+			                    '<div class="delete" readonly="readonly"><a class="del">删除<a/></div>'+
 			                    '<div class="update" readonly="readonly"><a>修改<a/></div>'+
 			                  '</th>'+
 			                '</tr>'

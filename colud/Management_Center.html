@@ -5,6 +5,7 @@
 	<!-- build:css ./css/management.css -->
 	<link rel="stylesheet" href="./css/Management_Center.css" />
 	<link rel="stylesheet" href="./css/globals.css" />
+	<link rel="stylesheet" href="./css/layer.css" />
 	<!-- endbuild -->
 	<head>
 		<meta charset="UTF-8">
@@ -32,7 +33,7 @@
 						<span class="header-r-line"></span>
 						<p><a href="" target="_blank">管理中心</a></p>
 						<p><a href="" target="_blank">修改密码</a></p>
-						<p><a href="">退出账号</a></p>
+						<p><a href="" onclick="sessionStorage.clear()">退出账号</a></p>
 					</div>
 				</div>
 				
@@ -197,7 +198,8 @@
 						<h1>企业资料</h1>
 						<a>修改</a>
 					</div>
-					<form class="submit">	
+					<div class="information-form">
+						<!--<form class="submit">	
 						<div class="information-item2">						
 							<ul class="information-item2-2">
 								<li class="item-2-1">企业名称：
@@ -221,7 +223,8 @@
 								</li>			
 							</ul>	
 						</div>
-					</form>
+					</form>-->
+					</div>
 					<!--授权-->
 					<div class="authorization-item1">
 						<h1>授权信息</h1>
@@ -250,7 +253,7 @@
 						<h1>账号信息</h1>
 						<a>修改</a>
 					</div>
-					<form class="user_submit">
+					<!--<form class="user_submit">
 						<div class="account-item2">							
 							<ul class="account-item2-2">
 								<li class="item-2-1 item-2-1-id">ID：<input class="input1"  type="text" disabled="disabled"/></li>
@@ -264,7 +267,7 @@
 								</li>
 							</ul>
 						</div>
-					</form>
+					</form>-->
 				</div>
 				<!--页码-->
 				<div class="Page">
@@ -277,17 +280,85 @@
 		</div>
 	</body>
 	
+	
+	
 	<script src="js/jquery.js"></script>
 	<script src="js/Management_Center.js"></script>	
 	<script src="js/Add_members.js"></script>
 	<script src="js/jquery.validate.js"></script>
 	<script src="js/messages_zh.js"></script>
 	<script src='js/Delete.js'></script>
-	<script src="js/update.js"></script>
+	<!--<script src="js/update.js"></script>-->
 	<script src="js/lock.js"></script>
 	<script src="js/serch.js"></script>
 	<script src="js/paginator.js"></script>   <!--分页插件-->
-	<script src="js/paging.js"></script>
+	<!--<script src="js/paging.js"></script>-->
+	<script src="js/handlebars.js"></script>	  <!--模板引擎-->
+	<script src="js/layer.js"></script>
+	<!--成员管理-->
+	<script id="entry-template-Member" type="text/x-handlebars-template">
+		 {{#each data}}
+			<tr class="tr tr1 thead-tr">
+				<th class="th-1 thead-th-1">{{this.userId}}</th>
+				<th class="th-2 thead-th-2">{{this.userName}}<img src="img/u1.png" title="管理员帐号"><img></th>
+				<th class="th-3 thead-th-3">{{this.email}}</th>
+				<th class="th-4 thead-th-4">{{this.tel}}</th>
+				<th class="th-5 thead-th-5">{{this.state}}</th>
+				<th class="th-6 tr_1 tr-1 thead-th-6">
+					<div class="Locking" readonly="readonly">锁定</div>
+					<div class="Delete" readonly="readonly">删除</div>
+				</th>
+			</tr>
+		{{/each}}
+	</script>
+	<!--管理员账号信息-->
+	<script id="entry-template-Administrators" type="text/x-handlebars-template">
+      	<form class="user_submit">
+			<div class="account-item2">							
+				<ul class="account-item2-2">
+					<li class="item-2-1 item-2-1-id">ID：<input class="input1"  type="text" disabled="disabled" value="{{this.userId}}"></li>
+					<li class="item-2-2">账号：<input class="input2" type="text" disabled="disabled" value="{{this.userName}}"></li>
+					<li class="item-2-3">姓名：<input class="input-3" id="name" name="name" type="text" readonly="readonly" value="{{this.nickName}}"></li>
+					<li class="item-2-4">邮箱：<input class="input-4" id="email" name="email" type="text" readonly="readonly" value="{{this.email}}"></li>
+					<li class="item-2-5">手机：<input class="input-5" id="tel" name="tel" type="text" readonly="readonly"  value="{{this.tel}}"></li>
+					<li class="account-item2-6 none">
+						<div class="Preservation-1">保存</div>
+						<div class="cancel-1">取消</div>
+					</li>
+				</ul>
+			</div>
+		</form>
+   </script>   
+	<!--企业信息-->
+	<script id="entry-template-enterprise" type="text/x-handlebars-template">
+		<form class="submit">	
+			<div class="information-item2">						
+				<ul class="information-item2-2">
+					<li class="item-2-1">企业名称：
+						<input class="input-1" type="text" readonly="readonly" value="{{this.companyName}}">
+					</li>
+					<li class="item-2-2">企业域名：
+						<input class="input2" type="text" disabled="disabled" value="{{this.companyDomain}}">
+					</li>
+					<li class="item-2-3">联系电话：
+						<input class="input-3" id="tel" name="tel" type="text" readonly="readonly" value="{{this.companyPhone}}">
+					</li>
+					<li class="item-2-4">联系地址：
+						<input class="input-4" id="addr" name="addr" type="text" readonly="readonly" value="{{this.companyAddr}}">
+					</li>
+					<li class="item-2-5">邮政编码：
+						<input class="input-5" id="postalcode" name="postalcode" type="text" readonly="readonly" value="{{this.postalcode}}">
+					</li>
+					<li class="item-2-6 none">
+						<div class="Preservation">保存</div>
+						<div class="cancel">取消</div>
+					</li>			
+				</ul>	
+			</div>
+		</form>
+	</script>
+	
+	
 	<script>
 		//账号管理
 		$(".item-1").click(function(){			
@@ -403,10 +474,10 @@
 			}
 		});
 		//添加成员弹出框
-		$(".item1-add-btn").click(function(){
-				$(".mask").show();
-				$(".modal-box").show();
-		})
+//		$(".item1-add-btn").click(function(){
+//				$(".mask").show();
+//				$(".modal-box").show();
+//		})
 		
 		//加载页面完成时左侧导航栏的高度
 		 $(function(){
