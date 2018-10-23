@@ -91,84 +91,7 @@
 							<span class="search-text">搜索</span>
 						</div>
 					</div>	
-				</div>
-				<!--弹出添加模态框-->
-				<div class="modal-box none">
-					<form action="" class="table">
-						<div class="modal-box-item1">
-							<h1>添加成员</h1>
-							<img class="modal-box-item1-img" src="img/u6.png" alt="" />
-						</div>
-						<div class="modal-box-item2">
-							<ul>
-								<li class="modal-box-item2-1">
-									<span>*账号：</span>
-									<input class="modal-box-item2-1-input" id="user_id" name="user_id" type="text" />
-									<span class="modal-box-item2-1-search"></span>
-								</li>
-								<li class="modal-box-item2-2">
-									<span>*邮箱：</span>
-									<input class="modal-box-item2-2-input"  id="email" name="email" type="text" />									
-								</li>
-								<li class="modal-box-item2-3">
-									<span>*手机：</span>
-									<input class="modal-box-item2-3-input" id="tel" name="tel" type="text" />
-								</li>
-								<li class="modal-box-item2-4">
-									<a class="modal-box-item2-3-btn">添加</a>
-								</li>
-							</ul>
-						</div>
-					</form>
-				</div>
-				<!--弹出修改模态框-->
-				<div class="modal-box-update none">
-					<form class="update-btn">
-						<div class="modal-box-update-item">
-							<h1>修改成员信息</h1>
-							<img class="modal-box-update-item-img" src="img/u6.png" alt="" />
-						</div>
-						<div class="modal-box-update-item1">
-							<ul>
-								<li class="modal-box-update-li1">
-									<span>*账号：</span>
-									<input class="modal-box-update-li1-input"  type="text" disabled="disabled"/>
-									<span class="modal-box-item2-1-search"></span>									
-								</li>
-								<li class="modal-box-update-li2">
-									<span>*邮箱：</span>
-									<input class="modal-box-update-li2-input" id="email" name="email" type="text" />									
-								</li>
-								<li class="modal-box-update-li3">
-									<span>*手机：</span>
-									<input class="modal-box-update-li3-input" id="tel" name="tel" type="text" />
-								</li>
-								<li class="modal-box-update-li4">
-									<a class="modal-box-update-li4-btn">确认</a>
-								</li>
-							</ul>
-						</div>
-					</form>
-				</div>
-				<!--添加成功模态框-->
-				<div class="success none">
-					<h1>添加成功!</h1>
-					<span>
-						<div class="success-btn1">继续添加</div>
-						<div class="success-btn2">关闭</div>
-					</span>
-				</div>
-				<!--解锁提示模态框-->
-				<div class="lock none">
-					<h1>提示!</h1>
-					<h5>当前活动状态的账号已达上限，请</h5>
-					<h5>先进行人数的购买，然后再解锁成员</h5>
-					<span class="Sure-btn">
-						<a>确定</a>
-					</span>
-				</div>
-				<!--遮罩层-->
-				<div class="mask none"></div>
+				</div>				
 				<!--列表-->
 				<table>
 					<thead class="thead">
@@ -181,16 +104,19 @@
 								<span class="th-5-text">状态</span>
 								<div class="th5-div">
 									<div class="th5-drop">
-										<p class="th5-drop-p1"><a target="_blank">全部的</a></p>
-										<p><a target="_blank">活动的</a></p>
-										<p><a target="_blank">锁定的</a></p>
+										<p class="th5-drop-p1"><a data-status="2" target="_blank">全部的</a></p>
+										<p><a data-status="0" target="_blank">活动的</a></p>
+										<p><a data-status="1" target="_blank">锁定的</a></p>
 									</div>
 								</div>
 							</th>
 							<th class="th6">操作</th>
 						</tr>
+						
 					</thead>
-					<tbody class="tbody"></tbody>
+					<tbody class="tbody">
+						
+					</tbody>
 				</table>
 				<!--企业信息-->
 				<div class="information-all none">
@@ -199,31 +125,7 @@
 						<a>修改</a>
 					</div>
 					<div class="information-form">
-						<!--<form class="submit">	
-						<div class="information-item2">						
-							<ul class="information-item2-2">
-								<li class="item-2-1">企业名称：
-									<input class="input-1" type="text" readonly="readonly"/>
-								</li>
-								<li class="item-2-2">企业域名：
-									<input class="input2" type="text" disabled="disabled"/>
-								</li>
-								<li class="item-2-3">联系电话：
-									<input class="input-3" id="tel" name="tel" type="text" readonly="readonly">
-								</li>
-								<li class="item-2-4">联系地址：
-									<input class="input-4" id="addr" name="addr" type="text" readonly="readonly">
-								</li>
-								<li class="item-2-5">邮政编码：
-									<input class="input-5" id="postalcode" name="postalcode" type="text" readonly="readonly">
-								</li>
-								<li class="item-2-6 none">
-									<div class="Preservation">保存</div>
-									<div class="cancel">取消</div>
-								</li>			
-							</ul>	
-						</div>
-					</form>-->
+				
 					</div>
 					<!--授权-->
 					<div class="authorization-item1">
@@ -253,21 +155,7 @@
 						<h1>账号信息</h1>
 						<a>修改</a>
 					</div>
-					<!--<form class="user_submit">
-						<div class="account-item2">							
-							<ul class="account-item2-2">
-								<li class="item-2-1 item-2-1-id">ID：<input class="input1"  type="text" disabled="disabled"/></li>
-								<li class="item-2-2">账号：<input class="input2" type="text" disabled="disabled" /></li>
-								<li class="item-2-3">姓名：<input class="input-3" id="name" name="name" type="text" readonly="readonly"/></li>
-								<li class="item-2-4">邮箱：<input class="input-4" id="email" name="email" type="text" readonly="readonly"/></li>
-								<li class="item-2-5">手机：<input class="input-5" id="tel" name="tel" type="text" readonly="readonly"/></li>
-								<li class="account-item2-6 none">
-									<div class="Preservation-1">保存</div>
-									<div class="cancel-1">取消</div>
-								</li>
-							</ul>
-						</div>
-					</form>-->
+		
 				</div>
 				<!--页码-->
 				<div class="Page">
@@ -278,37 +166,43 @@
 				
 			</div>
 		</div>
-	</body>
-	
-	
-	
+	</body>	
 	<script src="js/jquery.js"></script>
+	<script src="js/header.js"></script>
 	<script src="js/Management_Center.js"></script>	
-	<script src="js/Add_members.js"></script>
 	<script src="js/jquery.validate.js"></script>
-	<script src="js/messages_zh.js"></script>
-	<script src='js/Delete.js'></script>
-	<!--<script src="js/update.js"></script>-->
-	<script src="js/lock.js"></script>
-	<script src="js/serch.js"></script>
-	<script src="js/paginator.js"></script>   <!--分页插件-->
+	<script src="js/paginator.js"></script><!--分页插件-->
 	<!--<script src="js/paging.js"></script>-->
-	<script src="js/handlebars.js"></script>	  <!--模板引擎-->
-	<script src="js/layer.js"></script>
+	<script src="js/handlebars.js"></script><!--模板引擎-->
+	<script src="js/layer.js"></script> <!--弹窗插件-->
 	<!--成员管理-->
 	<script id="entry-template-Member" type="text/x-handlebars-template">
-		 {{#each data}}
-			<tr class="tr tr1 thead-tr">
+		 {{#each this}}		
+			<tr class="tr1 thead-tr {{#if this.isAdmin}}tr{{/if}}">
 				<th class="th-1 thead-th-1">{{this.userId}}</th>
-				<th class="th-2 thead-th-2">{{this.userName}}<img src="img/u1.png" title="管理员帐号"><img></th>
+				<th class="th-2 thead-th-2">{{this.userName}}{{#if this.isAdmin}}<img src="img/u1.png" title="管理员帐号"><img>{{/if}}</th>
 				<th class="th-3 thead-th-3">{{this.email}}</th>
 				<th class="th-4 thead-th-4">{{this.tel}}</th>
-				<th class="th-5 thead-th-5">{{this.state}}</th>
+				<th class="th-5 thead-th-5" data-status="{{this.status}}">{{this.statusType}}</th>
+				{{#if this.isAdmin}}
 				<th class="th-6 tr_1 tr-1 thead-th-6">
 					<div class="Locking" readonly="readonly">锁定</div>
 					<div class="Delete" readonly="readonly">删除</div>
 				</th>
-			</tr>
+				{{else}}
+				<th class="th-6">
+	                <div class="locking" readonly="readonly">
+	                	<a data-userid="{{this.userId}}" data-status="{{this.status}}" data-nickName="{{this.nickName}}" data-email="{{this.email}}" data-tel="{{this.tel}}">解锁<a/>               	
+	                </div>
+	                <div class="delete" readonly="readonly">
+	                	<a class="del" data-userid="{{this.userId}}" data-nickName="{{this.nickName}}" data-email="{{this.email}}" data-tel="{{this.tel}}">删除<a/>                	
+	                </div>
+	                <div class="update" readonly="readonly">
+	                	<a data-userid="{{this.userId}}" data-nickName="{{this.nickName}}" data-email="{{this.email}}" data-tel="{{this.tel}}">修改<a/>                	
+	                </div>
+              	</th>
+              	{{/if}}
+			</tr>			
 		{{/each}}
 	</script>
 	<!--管理员账号信息-->
@@ -318,9 +212,9 @@
 				<ul class="account-item2-2">
 					<li class="item-2-1 item-2-1-id">ID：<input class="input1"  type="text" disabled="disabled" value="{{this.userId}}"></li>
 					<li class="item-2-2">账号：<input class="input2" type="text" disabled="disabled" value="{{this.userName}}"></li>
-					<li class="item-2-3">姓名：<input class="input-3" id="name" name="name" type="text" readonly="readonly" value="{{this.nickName}}"></li>
-					<li class="item-2-4">邮箱：<input class="input-4" id="email" name="email" type="text" readonly="readonly" value="{{this.email}}"></li>
-					<li class="item-2-5">手机：<input class="input-5" id="tel" name="tel" type="text" readonly="readonly"  value="{{this.tel}}"></li>
+					<li class="item-2-3">姓名：<input class="input-3 admin-input admin-input1" id="name" name="name" type="text"  value="{{this.nickName}}"></li>
+					<li class="item-2-4">邮箱：<input class="input-4 admin-input admin-input2" id="email" name="email" type="text"  value="{{this.email}}"></li>
+					<li class="item-2-5">手机：<input class="input-5 admin-input admin-input3" id="tel" name="tel" type="text"   value="{{this.tel}}"></li>
 					<li class="account-item2-6 none">
 						<div class="Preservation-1">保存</div>
 						<div class="cancel-1">取消</div>
@@ -335,19 +229,19 @@
 			<div class="information-item2">						
 				<ul class="information-item2-2">
 					<li class="item-2-1">企业名称：
-						<input class="input-1" type="text" readonly="readonly" value="{{this.companyName}}">
+						<input class="input-1 text-updata updata-item2-input1" type="text"  value="{{this.companyName}}">
 					</li>
 					<li class="item-2-2">企业域名：
 						<input class="input2" type="text" disabled="disabled" value="{{this.companyDomain}}">
 					</li>
 					<li class="item-2-3">联系电话：
-						<input class="input-3" id="tel" name="tel" type="text" readonly="readonly" value="{{this.companyPhone}}">
+						<input class="input-3 text-updata updata-item2-input3" id="tel" name="tel" type="text"  value="{{this.companyPhone}}">
 					</li>
 					<li class="item-2-4">联系地址：
-						<input class="input-4" id="addr" name="addr" type="text" readonly="readonly" value="{{this.companyAddr}}">
+						<input class="input-4 text-updata updata-item2-input4" id="addr" name="addr" type="text"  value="{{this.companyAddr}}">
 					</li>
 					<li class="item-2-5">邮政编码：
-						<input class="input-5" id="postalcode" name="postalcode" type="text" readonly="readonly" value="{{this.postalcode}}">
+						<input class="input-5 text-updata updata-item2-input5" id="postalcode" name="postalcode" type="text"  value="{{this.postalcode}}">
 					</li>
 					<li class="item-2-6 none">
 						<div class="Preservation">保存</div>
@@ -357,222 +251,7 @@
 			</div>
 		</form>
 	</script>
-	
-	
-	<script>
-		//账号管理
-		$(".item-1").click(function(){			
-			var img = $(this).children().eq(1);			
-				if(img.hasClass("jiantou-down")){
-					//切换箭头
-					img.removeClass('jiantou-down').addClass('jiantou');
-					//显示item-2
-					$(".item-2").toggle();
-				}else{
-					img.addClass('jiantou-down').removeClass('jiantou');
-					$(".item-2").toggle();
-				}
-		})
-		
-		//账号设置
-		$(".item-3").click(function(){			
-			var img = $(this).children().eq(1);			
-				if(img.hasClass("jiantou-down")){
-					//切换箭头
-					img.removeClass('jiantou-down').addClass('jiantou');
-					//显示item-4,item-5
-					$(".item-4").toggle();
-					$(".item-5").toggle();
-				}else{
-					img.addClass('jiantou-down').removeClass('jiantou');
-					$(".item-4").toggle();
-					$(".item-5").toggle();
-				}
-		})
-		//添加成员hover
-		$('.item1-img').hover(function(){
-			if($(".hover").hasClass("none")){
-				$(".hover").removeClass("none");
-			}else{
-				$(".hover").addClass("none");
-			}
-		})
-		
-		//添加成员，获取焦点后邮箱输入框背景变黄
-//		$(".modal-box-item2-2-input").focus(function(){
-//			$(".modal-box-item2-2-input").css("backgroundColor","rgb(250,255,189)")
-//		})
-		//搜索框获取焦点
-		$(".item1-input").focus(function(){
-		  $(".item1-search").css("border","1px solid #06c")
-		});
-		//搜索框失去焦点
-		$(".item1-input").blur(function(){
-		  $(".item1-search").css("border","1px solid #d3d3d3")
-		});
-		//左侧导航栏选项卡切换
-		//企业信息
-		$(".item-4").click(function(){
-			if(!$(".item-4").hasClass("item-bg-color")){
-				$(".item-4").addClass("item-bg-color");
-				$(".item-2").removeClass("item-bg-color");
-				$(".item-5").removeClass("item-bg-color");
-				$(".main-r-item1").addClass("none");
-				$("table").addClass("none");
-				$(".account").addClass("none");
-				$(".information-all").removeClass("none");
-				$(".page").addClass("none");
-				/*管理员账号input*/
-				$(".account-item2-2>.item-2-3>.input-3").removeClass("border");
-				$(".account-item2-2>.item-2-4>.input-4").removeClass("border");
-				$(".account-item2-2>.item-2-5>.input-5").removeClass("border");
-				$(".account-item2-6").addClass("none");
-				
-			}
-		})
-		//成员管理
-		$(".item-2").click(function(){
-			if(!$(".item-2").hasClass("item-bg-color")){
-				$(".item-2").addClass("item-bg-color");
-				$(".item-4").removeClass("item-bg-color");
-				$(".item-5").removeClass("item-bg-color");
-				$(".main-r-item1").removeClass("none");
-				$("table").removeClass("none");
-				$(".account").addClass("none");
-				$(".information-all").addClass("none");
-				$(".page").removeClass("none");
-				/*企业信息input*/
-				$(".information-item2-2>.item-2-1>.input-1").removeClass("border");
-	   			$(".information-item2-2>.item-2-3>.input-3").removeClass("border");
-	   			$(".information-item2-2>.item-2-4>.input-4").removeClass("border");
-	   			$(".information-item2-2>.item-2-5>.input-5").removeClass("border");
-	   			$(".information-item2-2>.item-2-6").addClass("none");
-   				/*管理员账号input*/
-   				$(".account-item2-2>.item-2-3>.input-3").removeClass("border");
-				$(".account-item2-2>.item-2-4>.input-4").removeClass("border");
-				$(".account-item2-2>.item-2-5>.input-5").removeClass("border");
-				$(".account-item2-6").addClass("none");
-			}
-		})
-		//管理员账号
-		$(".item-5").click(function(){
-			if(!$(".item-5").hasClass("item-bg-color")){
-				$(".item-5").addClass("item-bg-color");
-				$(".item-2").removeClass("item-bg-color");
-				$(".item-4").removeClass("item-bg-color");
-				$(".main-r-item1").addClass("none");
-				$("table").addClass("none");
-				$(".information-all").addClass("none");
-				$(".account").removeClass("none");
-				$(".page").addClass("none");
-				/*企业信息input*/
-				$(".information-item2-2>.item-2-1>.input-1").removeClass("border");
-	   			$(".information-item2-2>.item-2-3>.input-3").removeClass("border");
-	   			$(".information-item2-2>.item-2-4>.input-4").removeClass("border");
-	   			$(".information-item2-2>.item-2-5>.input-5").removeClass("border");
-	   			$(".information-item2-2>.item-2-6").addClass("none");
-			}
-		});
-		//添加成员弹出框
-//		$(".item1-add-btn").click(function(){
-//				$(".mask").show();
-//				$(".modal-box").show();
-//		})
-		
-		//加载页面完成时左侧导航栏的高度
-		 $(function(){
-		 	var height=$(window).height();
-		 	$(".main-l").css("height",height);
-		 });
-		//左侧导航窗口可视高度
-		$(window).resize(function () {//当浏览器大小发生变化时发生的事件
-		    var height=$(window).height();
-		    $(".main-l").css("height",height);
-		});
-		//滚动条监听可视高度
-		$(window).scroll(function(event){
-			var s=$(window).scrollTop();
-			var height=$(window).height()+s;
-		    $(".main-l").css("height",height);
-   		});   
-   		//修改企业信息
-   		var companyName
-		var	companyPhone
-		var	companyAddr
-		var	postalcode
-   		$(".information-item1>a").click(function(){
-   			$(".information-item2-2>.item-2-1>.input-1").addClass("border");
-   			$(".information-item2-2>.item-2-3>.input-3").addClass("border");
-   			$(".information-item2-2>.item-2-4>.input-4").addClass("border");
-   			$(".information-item2-2>.item-2-5>.input-5").addClass("border");
-   			$(".information-item2-2>.item-2-6").removeClass("none");  			
-   			//存值
-   			companyName=$(".information-item2-2>.item-2-1>.input-1").val(),
-			companyPhone=$(".information-item2-2>.item-2-3>.input-3").val(),
-			companyAddr=$(".information-item2-2>.item-2-4>.input-4").val(),
-			postalcode=$(".information-item2-2>.item-2-5>.input-5").val(),
-			//点击显示光标
-   			$('input[readonly], textarea[readonly]').removeAttr('unselectable','on');
-   			//取消只读
-   			$(".information-item2-2>li>input").prop('readonly',false);
-   		})
-		//取消		
-		$('.cancel').click(function(){	
-			$(".information-item2-2>.item-2-1>.input-1").removeClass("border");
-   			$(".information-item2-2>.item-2-3>.input-3").removeClass("border");
-   			$(".information-item2-2>.item-2-4>.input-4").removeClass("border");
-   			$(".information-item2-2>.item-2-5>.input-5").removeClass("border");
-   			$(".information-item2-2>.item-2-6").addClass("none");
-   			//清空验证提示
-			$("label.error").hide();			
-   			//回填数据
-   			$(".information-item2-2>.item-2-1>.input-1").val(companyName);
-   			$(".information-item2-2>.item-2-3>.input-3").val(companyPhone);
-   			$(".information-item2-2>.item-2-4>.input-4").val(companyAddr);
-   			$(".information-item2-2>.item-2-5>.input-5").val(postalcode);
-   			//添加只读
-			$(".information-item2-2>li>input").prop('readonly',true);
-			//光标取消
-			$('input[readonly], textarea[readonly]').attr('unselectable','on');
-		}) 		
-	
-   		//修改管理员账号
-   		var name
-   		var email
-   		var tel
-   		$('.account-item1>a').click(function(){
-			$(".account-item2-2>.item-2-3>.input-3").addClass("border");
-			$(".account-item2-2>.item-2-4>.input-4").addClass("border");
-			$(".account-item2-2>.item-2-5>.input-5").addClass("border");
-			$(".account-item2-6").removeClass("none");
-			//点击显示光标
-   			$('input[readonly], textarea[readonly]').removeAttr('unselectable','on');
-			//取消只读
-   			$(".account-item2-2>li>input").prop('readonly',false);
-			//存值
-			name=$(".account-item2-2>.item-2-3>.input-3").val(),
-			email=$(".account-item2-2>.item-2-4>.input-4").val(),
-			tel=$(".account-item2-2>.item-2-5>.input-5").val()
-   		})
-   		//取消
-		$('.cancel-1').click(function(){
-			$(".account-item2-2>.item-2-3>.input-3").removeClass("border");
-			$(".account-item2-2>.item-2-4>.input-4").removeClass("border");
-			$(".account-item2-2>.item-2-5>.input-5").removeClass("border");
-			$(".account-item2-6").addClass("none");			
-			//清空验证提示
-			$("label.error").hide();
-			//回填数据
-			$(".account-item2-2>.item-2-3>.input-3").val(name);//姓名
-			$(".account-item2-2>.item-2-4>.input-4").val(email);//邮箱
-			$(".account-item2-2>.item-2-5>.input-5").val(tel);//手机
-			//添加只读
-			$(".account-item2-2>li>input").prop('readonly',true);
-			//光标取消
-			$('input[readonly], textarea[readonly]').attr('unselectable','on');
-		})
-		
-</script>
+
 <script type="text/javascript">
 	//光标取消
 	$('input[readonly], textarea[readonly]').attr('unselectable','on');

@@ -2,69 +2,63 @@ $(document).ready(function(){
 	
 	function Index(){
 		
-		this._sign();//是否登录.
+		this._Administrators();//管理员信息
 		
-		this._Administrators();//管理员
+		this._Member();//成员管理信息
 		
-		this._enterprise();//企业信息
-				
-		this._event();//时间绑定
-		
-		this._Member();//成员管理
+		this._validate2();//验证插件		
+						
     }
 	
-	/*
-	 * 判断是否处于登陆
-	 */
-	Index.prototype._sign=function(){
-		$.ajax({
-			type:"get",
-			url:"http://vip.foxitreader.cn/getUserInfoApi",
-			dataType: "jsonp",
-	        jsonp: 'jsonpcallback',
-	        success:function(data){
-	        	if(data.ret !== 302){//如果不处于未登录转态
-		        	if(data.data.roleName === 'admin'){//为企业账号，填写信息
-		        		$(".header-r-number").html(data.data.nickname);
-						$(".user-name").html(data.data.userName);
-						$(".header-r-usernumber").html(data.data.userName);
-						$(".header-r-id").html("ID:"+data.data.userId);
-		        	}else{//否则跳转到登录页
-	//	        		window.location.href = 'http://vip.foxitreader.cn/userCenter';
-		        	}
-	        	}else{//跳转到主页
-	//      			window.location.href = 'http://work.foxitcloud.cn/index.html';
-	        	}
-	        }
-		})
-	};
 	/*
 	 * 成员管理页面
 	 */
 	Index.prototype._Member=function(){
-	     $('#page').pagination({
-	        dataSource: function(done) {
-	                        $.ajax({
-	                            type: 'get',
-	                            url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
-	                            dataType: "jsonp",
-	                            jsonp: 'jsonpcallback',
-	                            success: function(response) {
-	                              done(response.data);
-	                            }
-	                        });
-	                     },//总数据
-	        pageSize: 12,//每页条数
-	        prevText:"<",
-	        nextText:">",
-	        callback: function(data, pagination){
-	        	console.log(data);
-	        	var source = $("#entry-template-Member").html();
-	  			var template = Handlebars.compile(source);
-	  			$(".thead").append(template(data));
-	        }
-		});
+			var that=this;
+		     $('#page').pagination({
+		        dataSource: function(done) {
+	                $.ajax({
+	                    type: 'get',
+	                    url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
+	                    dataType: "jsonp",
+	                    jsonp: 'jsonpcallback',
+	                    success: function(data) {
+	                    	done(data.data);
+	                      	/*保存域名全局数据变量*/
+							that.companyDomain = data.data[0].companyDomain;								
+	                    }
+	                });
+		        },//总数据量	                     
+		        pageSize: 12,//每页条数
+		        prevText:"<",
+		        nextText:">",
+		        callback: function(data, pagination){
+		        	//判断字段添加
+		        	for(var i = 0, max = data.length; i < max; i ++){
+						//状态显示字段
+						if(data[i].status==0){
+							data[i].statusType = '活动的';
+						}else if(data[i].status==1){
+							data[i].statusType = '已锁定';
+						}
+						
+						//管理员显示
+						if(data[i].roleName=="admin"){
+							data[i].isAdmin = true;
+						}else if(data[i].roleName=="member"){
+							data[i].isAdmin = false;
+						}
+					}
+		        	//渲染
+		        	var source = $("#entry-template-Member").html();
+		  			var template = Handlebars.compile(source);
+		  			$(".tbody").html(template(data));//模板数据渲染			
+		  			that._event();//按钮绑定事件
+		  			that._fram();//弹窗事件	  			
+		        }		        	  
+			});		
 	}
+	
 	
 	/*
 	 * 管理员账号界面
@@ -78,34 +72,17 @@ $(document).ready(function(){
         	success:function(data){
         		var source = $("#entry-template-Administrators").html();
 	  			var template = Handlebars.compile(source);
-	  			$(".account").append(template(data.data));	
+	  			$(".account").append(template(data.data));	  			
         	}
-	   	});	   
+	   	});
 	}
 	
 	/*
-	 * 企业信息界面
+	 * 弹窗事件
 	 */
-	Index.prototype._enterprise=function(){
-		$.ajax({
-			type:"get",
-			url:"http://vip.foxitreader.cn/enterprise/getEnterpriseInfo",
-			dataType:"jsonp",
-			jsonp:'jsonpcallback',
-			success:function(data){
-				var source = $("#entry-template-enterprise").html();
-	  			var template = Handlebars.compile(source);
-	  			$(".information-form").append(template(data.data));
-			}
-		});
-		
-	}
-	
-	/*
-	 * 事件绑定
-	 */
-	Index.prototype._event=function(){
-//		添加成员弹框
+	Index.prototype._fram=function(){
+		var that=this;
+		//添加成员弹框
 		$(".item1-add-btn").on("click",function(){
 		    layer.open({
 		      type: 1,
@@ -117,16 +94,16 @@ $(document).ready(function(){
 							'<ul>'+
 								'<li class="modal-box-item2-1">'+
 									'<span>*账号：</span>'+
-									'<input class="modal-box-item2-1-input" id="user_id" name="user_id" type="text" />'+
-									'<span class="modal-box-item2-1-search"></span>'+
+									'<input class="modal-box-item2-1-input"  id="nickName" name="nickName" aria-required="true" type="text"/>'+
+									'<span class="modal-box-item2-1-search">@'+that.companyDomain+'.foxitcloud.cn</span>'+
 								'</li>'+
 								'<li class="modal-box-item2-2">'+
 									'<span>*邮箱：</span>'+
-									'<input class="modal-box-item2-2-input"  id="email" name="email" type="text" />'+									
+									'<input class="modal-box-item2-2-input"   id="email"  name="email" aria-required="true" type="text" />'+									
 								'</li>'+
 								'<li class="modal-box-item2-3">'+
 									'<span>*手机：</span>'+
-									'<input class="modal-box-item2-3-input" id="tel" name="tel" type="text" />'+
+									'<input id="tel" name="tel" aria-required="true" class="modal-box-item2-3-input"  type="text" />'+
 								'</li>'+
 								'<li class="modal-box-item2-4">'+
 									'<a class="modal-box-item2-3-btn">添加</a>'+
@@ -134,268 +111,291 @@ $(document).ready(function(){
 							'</ul>'+
 						'</div>'+		      			
 		      			'</form>'	      
-		    });		    
+		    });
+			    //调用验证插件
+			    that._validate2();		    
+			  	//确定
+			    $(".modal-box-item2-3-btn").on("click",function(){
+			    		if(!$(".table").validate().form()){
+					    	return;
+					    }else{
+				    		$.ajax({
+								type:"get",
+								url:"http://vip.foxitreader.cn/enterprise/addEnterpriseUser",
+								dataType: "jsonp",
+					            jsonp: 'jsonpcallback',
+					            data:{
+					            	nickName:$(".modal-box-item2-1-input").val(),
+					            	email:$(".modal-box-item2-2-input").val(),
+					            	tel:$(".modal-box-item2-3-input").val(),
+					            },
+					            success: function(data) {
+					            	//数据刷新
+					            	that._Member();
+					            }
+							});
+							layer.closeAll();//关闭所有层
+						}
+			    })		    
+		});		
+		//修改成员信息
+		$(".update>a").on("click",function(e){
+			var userId=$(this).attr('data-userId');
+			var nickName=$(this).attr('data-nickName');
+			var email=$(this).attr('data-email');
+			var tel=$(this).attr('data-tel');
+			layer.open({
+		      type: 1,
+		      area: ['470px', '432px'],
+		      title:"修改成员信息",
+		      shadeClose: true, //点击遮罩关闭
+		      content:'<form action="" class="table">'+
+		      			'<div class="modal-box-item2">'+
+							'<ul>'+
+								'<li class="modal-box-item2-1">'+
+									'<span>*账号：</span>'+									
+									'<input class="modal-box-item2-1-input update-input"  type="text" value='+nickName+'>'+									
+									'<span class="modal-box-item2-1-search">@'+that.companyDomain+'.foxitcloud.cn</span>'+
+								'</li>'+
+								'<li class="modal-box-item2-2">'+
+									'<span>*邮箱：</span>'+
+									'<input id="email" name="email" aria-required="true" class="modal-box-item2-2-input"  type="text" value='+email+'>'+									
+								'</li>'+
+								'<li class="modal-box-item2-3">'+
+									'<span>*手机：</span>'+
+									'<input id="tel" name="tel" aria-required="true" class="modal-box-item2-3-input"  type="text" value='+tel+'>'+
+								'</li>'+
+								'<li class="modal-box-item2-4">'+
+									'<a class="modal-box-item2-3-btn">确认</a>'+
+								'</li>'+
+							'</ul>'+
+						'</div>'+		      			
+		      			'</form>',		      
+			});
+			$(".update-input").prop("disabled","disabled");
+			//调用验证插件
+			that._validate2();
+			//确定修改			
+			$(".modal-box-item2-3-btn").on("click",function(){
+				if(!$(".table").validate().form()){
+					return;
+				}else{
+					$.ajax({
+							type:"get",
+							url:"http://vip.foxitreader.cn/enterprise/updateEnterpriseUserByAdmin",
+							dataType: "jsonp",
+				            jsonp: 'jsonpcallback',
+				            data:{
+				            	userId:userId,
+				            	nickName:nickName,
+				            	email:$(".modal-box-item2-2-input").val(),
+				            	tel:$(".modal-box-item2-3-input").val(),			            	
+				            },
+				            success: function(data) {
+				            	//修改页面层
+				            	$(e.target).parents(".thead-tr").find(".thead-th-3").html($(".modal-box-item2-2-input").val());
+				            	$(e.target).parents(".thead-tr").find(".thead-th-4").html($(".modal-box-item2-3-input").val());
+				            	//数据刷新
+				            	that._Member();
+				            }
+						});
+					layer.closeAll();//关闭所有层
+				}//if
+			})
+		})
+		
+		
+		
+		
+		//删除弹窗
+		$(".del").on("click",function(e){
+			var nickName=$(this).attr('data-nickName');
+			var userId=$(this).attr('data-userid');
+			layer.open({
+		      type: 1,
+		      area: ['470px', '296px'],
+		      title:"删除账号",
+		      shadeClose: true, //点击遮罩关闭
+		      content:'<div class="content-delete">'+
+					      '<img src="./img/u5.png" alt="删除">'+
+					      '<p>将账号“'+nickName+"@"+that.companyDomain+'.foxitcloud.cn”从成</p>'+
+					      '<p>员列表中删除？</p>'+
+					      '<div class="content-bottom clear">'+
+						      '<button class="l">删除</button>'+
+						      '<button class="r">取消</button>'+
+					      '</div>'+
+					    '</div>'
+			});
+			$(".r").on("click",function(){				
+				layer.closeAll();//关闭所有层				
+			})
+			$(".l").on("click",function(){
+				$.ajax({
+					type:"get",
+					url:"http://vip.foxitreader.cn/enterprise/deleteEnterpriseUser",
+					dataType: "jsonp",
+		            jsonp: 'jsonpcallback',
+		            data:{
+		            	userId:userId,
+		            },
+		            success: function(data) {
+			            //移除页面元素
+			           	$(e.target).parents(".thead-tr").remove();
+			           	//数据刷新
+			            that._Member();
+			            layer.closeAll();//关闭所有层
+			        }
+				});
+			})
+		})
+		//解锁弹窗
+		$(".locking>a").on("click",function(){
+			layer.open({
+		      type: 1,
+		      area: ['310px', '198px'],
+		      title:"提示",
+		      skin: 'layui-layer-locking',
+		      shadeClose: true, //点击遮罩关闭
+		      content:'<div class="layui-layer-content">'+
+					      '<div class="content contentAccount">'+
+						      '<img src="./img/u24.png" alt="提示">'+
+						      '<p>当前活动状态的账号已达上限，请先</p>'+
+						      '<p>进行人数的购买，然后再解锁成员</p>'+
+						      '<button class="contentAccount-b">确定</button>'+
+					      '</div>'+
+					   '</div>'
+			});
+		})
+	}
+	
+
+	
+	/*
+	 * 左侧导航栏切换，登录，搜索事件绑定
+	 */
+	Index.prototype._event=function(){
+		var that=this;	
+		/*
+		 * 左侧导航栏选项卡切换
+		 */
+		//账号管理
+		$(".item-1").on("click",function(){
+			var img = $(this).children().eq(1);			
+			if(img.hasClass("jiantou-down")){
+				//切换箭头
+				img.removeClass('jiantou-down').addClass('jiantou');
+				//显示item-2
+				$(".item-2").toggle();
+			}else{
+				img.addClass('jiantou-down').removeClass('jiantou');
+				$(".item-2").toggle();
+			}
+		})
+		//账号设置
+		$(".item-3").on("click",function(){
+			var img = $(this).children().eq(1);			
+			if(img.hasClass("jiantou-down")){
+				//切换箭头
+				img.removeClass('jiantou-down').addClass('jiantou');
+				//显示item-4,item-5
+				$(".item-4").toggle();
+				$(".item-5").toggle();
+			}else{
+				img.addClass('jiantou-down').removeClass('jiantou');
+				$(".item-4").toggle();
+				$(".item-5").toggle();
+			}
+		})
+		//添加成员hover
+		$('.item1-img').hover(function(){
+			if($(".hover").hasClass("none")){
+				$(".hover").removeClass("none");
+			}else{
+				$(".hover").addClass("none");
+			}
+		})
+		//搜索框
+		//搜索框获取焦点
+		$(".item1-input").focus(function(){
+		  $(".item1-search").css("border","1px solid #06c")
+		});
+		//搜索框失去焦点
+		$(".item1-input").blur(function(){
+		  $(".item1-search").css("border","1px solid #d3d3d3")
 		});
 	}
 		
-//		修改成员信息弹窗
-//		$(".update>a").on("click",function(){
-//		    layer.open({
-//		      type: 1,
-//		      area: ['470px', '432px'],
-//		      title:"修改成员信息",
-//		      shadeClose: true, //点击遮罩关闭
-//		      content: '<form action="" class="table">'+
-//		      			'<div class="modal-box-item2">'+
-//							'<ul>'+
-//								'<li class="modal-box-item2-1">'+
-//									'<span>*账号：</span>'+
-//									'<input class="modal-box-item2-1-input" id="user_id" name="user_id" type="text" />'+
-//									'<span class="modal-box-item2-1-search"></span>'+
-//								'</li>'+
-//								'<li class="modal-box-item2-2">'+
-//									'<span>*邮箱：</span>'+
-//									'<input class="modal-box-item2-2-input"  id="email" name="email" type="text" />'+									
-//								'</li>'+
-//								'<li class="modal-box-item2-3">'+
-//									'<span>*手机：</span>'+
-//									'<input class="modal-box-item2-3-input" id="tel" name="tel" type="text" />'+
-//								'</li>'+
-//								'<li class="modal-box-item2-4">'+
-//									'<a class="modal-box-item2-3-btn">添加</a>'+
-//								'</li>'+
-//							'</ul>'+
-//						'</div>'+		      			
-//		      			'</form>'	      
-//		    });		    
-//		});
-//	}
-//	$.ajax({
-//		type:"get",
-//		url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
-//		dataType: "jsonp",
-//      jsonp: 'jsonpcallback',
-//      success:function(data){     					
-//				        	//管理员账号初始数据渲染
-//							$(".account-item2-2>.item-2-1>.input1").val(data.data[0].userId);
-//							$(".account-item2-2>.item-2-2>.input2").val(data.data[0].userName);
-//							$(".account-item2-2>.item-2-3>.input-3").val(data.data[0].nickName);
-//							$(".account-item2-2>.item-2-4>.input-4").val(data.data[0].email);
-//							$(".account-item2-2>.item-2-5>.input-5").val(data.data[0].tel);
-//							//企业信息渲染数据
-//							//添加弹窗的域名
-//							$(".modal-box-item2-1-search").html("@"+data.data[0].companyDomain+".foxitcloud.cn");							
-//							$(".information-item2-2>.item-2-2>.input2").val(data.data[0].companyDomain);//域名					
-//							/*企业账号修改渲染*/
-//							$.ajax({
-//								type:"get",
-//								url:"http://vip.foxitreader.cn/enterprise/getEnterpriseInfo",//获取企业信息接口
-//								dataType:"jsonp",
-//								data:{},
-//								jsonp:'jsonpcallback',
-//								success:function(data){								
-//									$(".information-item2-2>.item-2-1>.input-1").val(data.data.companyName);//企业名称
-//									$(".information-item2-2>.item-2-3>.input-3").val(data.data.companyPhone);//联系电话
-//									$(".information-item2-2>.item-2-4>.input-4").val(data.data.companyAddr);//联系地址
-//									$(".information-item2-2>.item-2-5>.input-5").val(data.data.postalcode);//邮政编码
-//								}
-//							})
-//							/*管理员账号修改渲染*/
-//							$.ajax({
-//								type:"get",
-//								url:"http://vip.foxitreader.cn/enterprise/getEnterpriseUser",
-//								dataType:"jsonp",
-//								data:{},
-//								jsonp:'jsonpcallback',
-//								success:function(data){
-//									$(".account-item2-1>.item-2-3>.input3").val(data.data.nickName);//姓名
-//									$(".account-item2-1>.item-2-4>.input4").val(data.data.email);//邮箱
-//									$(".account-item2-1>.item-2-5>.input5").val(data.data.tel);//手机
-//								}
-//							})
-//      }//success
-        
-//	});
-			//点击修改
-				$(".information-item1>a").click(function(){
-					//企业信息表单验证
-					$(function(){
-				            var validate = $(".submit").validate({
-				                debug: false, //调试模式   true取消submit的默认提交功能   
-				                //errorClass: "label.error", //默认为错误的样式类为：error   
-				                focusInvalid: true, //当为false时，验证无效时，没有焦点响应     //提交表单后,未通过验证的表单(第一个或提交之前获得焦点的未通过验证的表单)会获得焦点 默认:true   
-				                submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form     
-				                    form.submit();   //提交表单   
-				                },  
-				                rules:{
-				                    tel:{
-				                        required:true,
-				                        digits:true,
-				                        minlength:11,
-				                        maxlength:11
-				                    },
-				                    addr:{
-				                        required:true,
-				                    },
-				                    postalcode:{
-				                        required:true,
-				                        digits:true, 
-				                        minlength:6,
-				                        maxlength:6
-				                    },               
-				                },
-				                messages:{
-				                    tel:{
-				                        required:"请填写您的手机号",
-				                        minlength:"请填写正确的手机号",
-				                        maxlength:"请填写正确的手机号"
-				                    },
-				                    addr:{
-				                        required:"请填写您的地址",
-				                    },
-				         			postalcode:{
-				         				required:"请填写您的邮政编码",
-				         				minlength:"请输入正确的邮政编码",
-				         				maxlength:"请输入正确的邮政编码"
-				         			}
-				                }
-				                          
-				            });    
-				    
-				    });//插件
-			   })
-				$(".account-item1>a").click(function(){
-				    //管理员账号表单验证
-					$(function(){
-				            var validate = $(".user_submit").validate({
-				                debug: false, //调试模式   true取消submit的默认提交功能   
-				                //errorClass: "label.error", //默认为错误的样式类为：error   
-				                focusInvalid: true, //当为false时，验证无效时，没有焦点响应     //提交表单后,未通过验证的表单(第一个或提交之前获得焦点的未通过验证的表单)会获得焦点 默认:true   
-				                submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form     
-				                    form.user_submit();   //提交表单   
-				                },  
-				                rules:{
-				                    name:{
-				                        required:true,
-				                    },
-				                    email:{
-				                        required:true,
-	                        			email:true
-				                    },
-				                    tel:{
-				                        required:true,
-				                        digits:true, 
-				                        minlength:11,
-				                        maxlength:11
-				                    },               
-				                },
-				                messages:{
-				                    name:{
-				                        required:"请填写您的姓名",
-				                    },
-				                    email:{
-				                        required:"请填写您的邮箱",
-	                        			email:"E-Mail格式不正确"
-				                    },
-				         			tel:{
-				         				required:"请填写您的电话号码",
-				         				minlength:"请输入正确的电话号码",
-				         				maxlength:"请输入正确的电话号码"
-				         			}
-				                }
-				                          
-				            });    
-				    
-				    });//插件
-				})
-	//企业信息、修改-保存
-	$('.Preservation').click(function(companyName,companyPhone,companyAddr,postalcode){
-			//添加只读
-			$(".information-item2-2>li>input").prop('readonly',true);
-			//光标取消
-			$('input[readonly], textarea[readonly]').attr('unselectable','on');
-		
-		if($(".submit").validate().form()){
-			$.ajax({
-				type:"get",
-				url:"http://vip.foxitreader.cn//enterprise/updateEnterpriseInfo",//修改企业信息接口
-				dataType:"jsonp",
-				data:{
-					companyName:$(".information-item2-2>.item-2-1>.input-1").val(),
-					companyPhone:$(".information-item2-2>.item-2-3>.input-3").val(),
-					companyAddr:$(".information-item2-2>.item-2-4>.input-4").val(),
-					postalcode:$(".information-item2-2>.item-2-5>.input-5").val()
-				},
-				jsonp: 'jsonpcallback',
-				success:function(data){
-					//保存的DOM操作
-					$(".information-item2-2>.item-2-1>.input-1").removeClass("border");
-			   		$(".information-item2-2>.item-2-3>.input-3").removeClass("border");
-			   		$(".information-item2-2>.item-2-4>.input-4").removeClass("border");
-			   		$(".information-item2-2>.item-2-5>.input-5").removeClass("border");
-			   		$(".information-item2-2>.item-2-6").addClass("none");			   		
-				},
-			});
-		}//if
-	});
 	
-	
-	//管理员账号信息、修改-保存
-	$('.Preservation-1').click(function(nickName,email,tel){
-		if($(".user_submit").validate().form()){
-			$.ajax({
-				type:"get",
-				url:"http://vip.foxitreader.cn/enterprise/updateEnterpriseUser",
-				dataType:"jsonp",
-				data:{
-					nickName:$(".account-item2-2>.item-2-3>.input-3").val(),
-					email:$(".account-item2-2>.item-2-4>.input-4").val(),
-					tel:$(".account-item2-2>.item-2-5>.input-5").val()
-				},
-				jsonp:'jsonpcallback',
-				success:function(data){
-					$(".account-item2-2>.item-2-3>.input-3").val($(".account-item2-2>.item-2-3>.input-3").val());//姓名
-					$(".account-item2-2>.item-2-4>.input-4").val($(".account-item2-2>.item-2-4>.input-4").val());//邮箱
-					$(".account-item2-2>.item-2-5>.input-5").val($(".account-item2-2>.item-2-5>.input-5").val());//手机
-					//渲染修改成功页面到首页管理员
-					$(".header-r-number").html($(".account-item2-2>.item-2-3>.input-3").val());
-					$(".thead-th-3").html($(".account-item2-2>.item-2-4>.input-4").val());
-					$(".thead-th-4").html($(".account-item2-2>.item-2-5>.input-5").val());				
-				},
-			});		
-			//保存的DOM操作
-			$(".account-item2-2>.item-2-3>.input-3").removeClass("border");
-			$(".account-item2-2>.item-2-4>.input-4").removeClass("border");
-			$(".account-item2-2>.item-2-5>.input-5").removeClass("border");
-			$(".account-item2-6").addClass("none");
-		}//if
-			//添加只读
-			$(".account-item2-2>li>input").prop('readonly',true);
-			//光标取消
-			$('input[readonly], textarea[readonly]').attr('unselectable','on');
-	});
-	//点击修改数据展示
-//	$(".account-item1>a").click(function(){
-////		$(".account-item2-2>.item-2-1>.input1").val($(".account-item2-2>.item-2-1>.input1").val());//ID
-////		$(".account-item2-2>.item-2-2>.input2").val($(".account-item2-2>.item-2-2>.input2").val());//账号
-////		$(".account-item2-2>.item-2-3>.input-3").val($ (".account-item2-2>.item-2-3>.input-3").val());//姓名
-////		$(".account-item2-2>.item-2-4>.input-4").val($(".account-item2-2>.item-2-4>.input-4").val());//邮箱
-////		$(".account-item2-2>.item-2-5>.input-5").val($(".account-item2-2>.item-2-5>.input-5").val());//手机
-//	})
-	
-	//状态列表筛选
+	//添加成员验证插件
+	Index.prototype._validate2=function(){
+		//企业信息表单验证		
+		$(function(){
+	            var validate = $(".table").validate({
+	                debug: false, //调试模式   true取消submit的默认提交功能   
+	                //errorClass: "label.error", //默认为错误的样式类为：error   
+	                focusInvalid: true, //当为false时，验证无效时，没有焦点响应     //提交表单后,未通过验证的表单(第一个或提交之前获得焦点的未通过验证的表单)会获得焦点 默认:true   
+	                submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form     
+	                    form.table();   //提交表单   
+	                },  
+	                rules:{	                    
+	                    nickName:{
+	                        required:true,
+	                    },
+	                    email:{
+	                        required:true,
+	            			email:true
+	                    },
+	                    tel:{
+	                        required:true,
+	                        digits:true,
+	                        minlength:11,
+	                        maxlength:11
+	                    },
+	                },
+	                messages:{	                    
+	                    nickName:{
+	                        required:"请填写您的账户",
+	                    },
+	         			email:{
+	                        required:"请填写您的邮箱",
+	            			email:"E-Mail格式不正确"
+	                    },
+	                    tel:{
+	                        required:"请填写您的手机号",
+	                        minlength:"请填写正确的手机号",
+	                        maxlength:"请填写正确的手机号"
+	                    },
+	                }
+	                          
+	            });    
+	    });//插件	    
+	}
+
+	//状态列表筛选		
 		$(".th5-drop>p>a").click(function(){
-			var text=$(this).html();
-			if(text=="全部的"){
+			var DataStatu=$(this).attr('data-status');
+			if(DataStatu==2){
 				$(".tr1").show();
-			}else if(text=="活动的"){
+			}else if(DataStatu==0){
 				$(".tr1").hide();
 				$(".th-5").filter(":contains('"+$(this).html()+"')").parent().show();
-			}else if(text=="锁定的"){
+			}else if(DataStatu==1){
 				$(".tr1").hide();
 				$(".th-5").filter(":contains('"+"锁"+"')").parent().show();
 			}
-		})	 
+		})
+		
+	//右上角搜索框
+		$(".search-text").click(function(){
+			var text=$.trim($(".item1-input").val().toString());//获取去掉两头空格的搜索框内容
+			if(text==""){
+				$(".tr1").show();
+			}else{
+				$(".tr1").hide();
+				$(".th-2").filter(":contains('"+text+"')").parent().show();
+			}
+		})
+	
 		//判断浏览器是否支持placeholder属性
 	    var supportPlaceholder = 'placeholder' in document.createElement('input');
 	

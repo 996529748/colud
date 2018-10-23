@@ -1002,7 +1002,7 @@ input[disabled]{
     font-weight: 400;
     font-style: normal;
     color: #e00;
-    top: 120px;
+    top: 70px;
     left: 90px;
 }
 /**/
@@ -1085,7 +1085,7 @@ label{
 	text-decoration: underline ;
 	color:#0066CC;
 }
-.locking,.delete{
+.locking,.delete,.update>a{
 	margin-right:5px;
 	cursor: pointer;
 }
@@ -1115,4 +1115,102 @@ input[disabled]{color:#333;opacity:1}
     background: url(../img/u6.png) no-repeat;
     width: 24px;
     height: 24px;
+}
+/*删除弹框样式*/
+.content-delete {
+    padding-top: 40px;
+}
+.content-delete img {
+    float: left;
+    display: block;
+    margin: -3px 10px 0 37px;
+}
+.content-delete p {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #666;
+    line-height: 28px;
+}
+.content-delete .content-bottom {
+    width: 237px;
+    margin: 45px auto 0;
+}
+.clear {
+    clear: both;
+}
+.content-delete .content-bottom button {
+    width: 110px;
+    height: 42px;
+    background-color: #c66;
+    border: none;
+    border-radius: 2px;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #fff;
+    outline: 0;
+    cursor: pointer;
+}
+.content-delete .content-bottom .r:hover {
+    color: #c66;
+    border: 1px solid #c66;
+    background: #fff;
+}
+.content-delete .content-bottom button:hover {
+    background: #d67b7b;
+}
+.content-delete .content-bottom .r {
+    background: #fff;
+    color: #999;
+    border: 1px solid #ddd;
+    margin-left: 17px;
+}
+/*解锁弹框*/
+.layui-layer-locking .layui-layer-title{
+	height: 29px;
+    line-height: 29px;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    background: #06c;
+}
+.layui-layer-locking .layui-layer-setwin .layui-layer-close1{
+    margin: -15px -15px 0 0;
+    background: url(../img/u23.png) no-repeat;
+    width: 29px;
+    height: 29px;
+}
+.layui-layer-locking .layui-layer-title{
+	  color:#fff;
+}
+.contentAccount {
+    padding-top: 40px;
+}
+.contentAccount img {
+    display: block;
+    float: left;
+    margin: 3px 10px 0 30px;
+}
+.contentAccount p {
+    font-weight: 400;
+    font-style: normal;
+    color: #5e5e5e;
+    font-size: 13px;
+    line-height: 20px;
+}
+.contentAccount button {
+    width: 72px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 400;
+    font-style: normal;
+    color: #fff;
+    background: #06c;
+    border-radius: 4px;
+    font-size: 13px;
+    margin: 30px 119px 0;
+    border: 1px solid #06c;
+    cursor: pointer;
 }
