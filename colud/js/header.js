@@ -152,8 +152,20 @@ $(document).ready(function(){
 			var companyName=$(".updata-item2-input1").val();//企业名称
 			var companyPhone=$(".updata-item2-input3").val();//企业电话
 			var companyAddr=$(".updata-item2-input4").val();//企业地址
-			var postalcode=$(".updata-item2-input5").val();//邮编
-				$(".Preservation").off().on("click",function(){	
+			var postalcode=$(".updata-item2-input5").val();//邮编			
+			$(".Preservation").off().on("click",function(){
+				//声明判断需要遍量
+				var companyName=$(".updata-item2-input1").val();//企业名称
+				var companyPhone=$(".updata-item2-input3").val();//企业电话
+				var companyAddr=$(".updata-item2-input4").val();//企业地址
+				var postalcode=$(".updata-item2-input5").val();//邮编
+//				if(companyName==$(".updata-item2-input1").val() && companyPhone==$(".updata-item2-input3").val() && companyAddr==$(".updata-item2-input4").val() && postalcode==$(".updata-item2-input5").val()){
+//					console.log("未修改信息，不请求");
+//					//样式重置
+//					css();
+//					return;
+//				}else{
+					
 					//验证通过时，发送保存请求，否则不发送
 					if(!$(".submit").validate().form()){
 						return;
@@ -185,7 +197,10 @@ $(document).ready(function(){
 							}
 						});
 					}//if
-				})				
+//				}//判断是否请求
+			})
+			
+				
 				//取消
 				$(".cancel").click(function(){
 					//样式重置
@@ -199,49 +214,57 @@ $(document).ready(function(){
 						$("label").hide();
 				})	
 	   	})
-		  		  		
+		 
+		 
    		//修改管理员账号
    		$('.account-item1>a').click(function(){
    			//调用验证插件
    			that._validate1();
 			$(".admin-input").addClass("border");
 			$(".account-item2-6").removeClass("none");
-			//获取修改后的新数据
+			//获取修改前的数据
 			var name=$(".admin-input1").val();
 			var email=$(".admin-input2").val();
 			var tel=$(".admin-input3").val();
 			//保存按钮
-			$(".Preservation-1").on("click",function(){
-				//验证通过时，发送保存请求，否则不发送
-				if(!$(".user_submit").validate().form()){
-					return;
-				}else{
-					//获取修改后的信息			
-					var name=$(".admin-input1").val();
-					var email=$(".admin-input2").val();
-					var tel=$(".admin-input3").val();
-					$.ajax({
-						type:"get",
-						url:"http://vip.foxitreader.cn/enterprise/updateEnterpriseUser",
-						dataType:"jsonp",
-						jsonp:'jsonpcallback',
-						data:{
-							nickName:name,
-							email:email,
-							tel:tel
-						},
-						success:function(data){									
-							//保存数据
-							$(".admin-input1").val(name);
-							$(".admin-input2").val(email);
-							$(".admin-input3").val(tel);
-							//样式重置
-							css1();
-							//右上角信息修改
-							$(".header-r-number").html($(".admin-input1").val());
-						}
-					});
-				}
+			$(".Preservation-1").on("click",function(){	
+//				if(name==$(".admin-input1").val() && email==$(".admin-input2").val() && tel==$(".admin-input3").val()){					
+//					console.log("未修改信息，不请求");
+//					//样式重置
+//					css1();
+//					return;
+//				}else{
+					//验证通过时，发送保存请求，否则不发送
+					if(!$(".user_submit").validate().form()){
+						return;
+					}else{
+						//获取修改后的信息			
+						var name=$(".admin-input1").val();
+						var email=$(".admin-input2").val();
+						var tel=$(".admin-input3").val();
+						$.ajax({
+							type:"get",
+							url:"http://vip.foxitreader.cn/enterprise/updateEnterpriseUser",
+							dataType:"jsonp",
+							jsonp:'jsonpcallback',
+							data:{
+								nickName:name,
+								email:email,
+								tel:tel
+							},
+							success:function(data){									
+								//保存数据
+								$(".admin-input1").val(name);
+								$(".admin-input2").val(email);
+								$(".admin-input3").val(tel);
+								//样式重置
+								css1();
+								//右上角信息修改
+								$(".header-r-number").html($(".admin-input1").val());
+							}
+						});
+					}
+//				}//判断是否请求
 			})
 			//取消
 			$(".cancel-1").click(function(){

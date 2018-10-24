@@ -16,7 +16,7 @@ $(document).ready(function(){
 	Index.prototype._Member=function(){
 			var that=this;
 		     $('#page').pagination({
-		        dataSource: function(done) {
+		        dataSource: function(done){		        	
 	                $.ajax({
 	                    type: 'get',
 	                    url:"http://vip.foxitreader.cn/enterprise/listEnterpriseUsers",
@@ -24,15 +24,18 @@ $(document).ready(function(){
 	                    jsonp: 'jsonpcallback',
 	                    success: function(data) {
 	                    	done(data.data);
-	                      	/*保存域名全局数据变量*/
-							that.companyDomain = data.data[0].companyDomain;								
-	                    }
+	                      	/*保存域名全局数据变量*/	                      	
+							that.companyDomain = data.data[0].companyDomain;
+	                    }	                    
 	                });
-		        },//总数据量	                     
+		        },//总数据量		        
 		        pageSize: 12,//每页条数
 		        prevText:"<",
 		        nextText:">",
+		        pageNumber:that.nowpage,
 		        callback: function(data, pagination){
+		        	//记录当前页数
+		        	that.nowpage = pagination.pageNumber;
 		        	//判断字段添加
 		        	for(var i = 0, max = data.length; i < max; i ++){
 						//状态显示字段
@@ -40,21 +43,21 @@ $(document).ready(function(){
 							data[i].statusType = '活动的';
 						}else if(data[i].status==1){
 							data[i].statusType = '已锁定';
-						}
-						
+						}						
 						//管理员显示
 						if(data[i].roleName=="admin"){
 							data[i].isAdmin = true;
 						}else if(data[i].roleName=="member"){
 							data[i].isAdmin = false;
 						}
-					}
-		        	//渲染
-		        	var source = $("#entry-template-Member").html();
-		  			var template = Handlebars.compile(source);
-		  			$(".tbody").html(template(data));//模板数据渲染			
-		  			that._event();//按钮绑定事件
-		  			that._fram();//弹窗事件	  			
+					}//for
+			        	//渲染
+			        	var source = $("#entry-template-Member").html();
+			  			var template = Handlebars.compile(source);
+			  			$(".tbody").html(template(data));//模板数据渲染			
+			  			that._event();//按钮绑定事件
+			  			that._fram();//弹窗事件	
+			  			pagination.pageNumber=that.nowpage;//页数跳转
 		        }		        	  
 			});		
 	}
@@ -83,7 +86,7 @@ $(document).ready(function(){
 	Index.prototype._fram=function(){
 		var that=this;
 		//添加成员弹框
-		$(".item1-add-btn").on("click",function(){
+		$(".item1-add-btn").off().on("click",function(){
 		    layer.open({
 		      type: 1,
 		      area: ['470px', '432px'],
@@ -139,7 +142,7 @@ $(document).ready(function(){
 			    })		    
 		});		
 		//修改成员信息
-		$(".update>a").on("click",function(e){
+		$(".update>a").off().on("click",function(e){
 			var userId=$(this).attr('data-userId');
 			var nickName=$(this).attr('data-nickName');
 			var email=$(this).attr('data-email');
@@ -179,6 +182,10 @@ $(document).ready(function(){
 			$(".modal-box-item2-3-btn").on("click",function(){
 				if(!$(".table").validate().form()){
 					return;
+				}else if(email==$(".modal-box-item2-2-input").val() && tel==$(".modal-box-item2-3-input").val()){
+					//console.log(email==$(".modal-box-item2-2-input").val() && tel==$(".modal-box-item2-3-input").val())
+					console.log("未发送修改请求");
+					layer.closeAll();//关闭所有层
 				}else{
 					$.ajax({
 							type:"get",
@@ -197,6 +204,8 @@ $(document).ready(function(){
 				            	$(e.target).parents(".thead-tr").find(".thead-th-4").html($(".modal-box-item2-3-input").val());
 				            	//数据刷新
 				            	that._Member();
+				            	//保持当前页	
+				            	
 				            }
 						});
 					layer.closeAll();//关闭所有层
@@ -208,7 +217,7 @@ $(document).ready(function(){
 		
 		
 		//删除弹窗
-		$(".del").on("click",function(e){
+		$(".del").off().on("click",function(e){
 			var nickName=$(this).attr('data-nickName');
 			var userId=$(this).attr('data-userid');
 			layer.open({
@@ -249,7 +258,7 @@ $(document).ready(function(){
 			})
 		})
 		//解锁弹窗
-		$(".locking>a").on("click",function(){
+		$(".locking>a").off().on("click",function(){
 			layer.open({
 		      type: 1,
 		      area: ['310px', '198px'],
